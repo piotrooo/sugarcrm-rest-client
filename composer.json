@@ -1,0 +1,19 @@
+{
+    "name": "piotr/sugarcrm-rest-client",
+    "description": "REST client for SugarCRM, based on PHP",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "piotrooo",
+            "email": "piotroo89@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "SugarClient": "src/"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "4.2.4"
+    }
+}
