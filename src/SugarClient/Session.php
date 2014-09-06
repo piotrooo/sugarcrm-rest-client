@@ -1,6 +1,8 @@
 <?php
 namespace SugarClient;
 
+use Exception;
+
 class Session
 {
     public static $url;
@@ -25,5 +27,12 @@ class Session
         }
         self::$sessionId = $result->id;
         return true;
+    }
+
+    public static function checkSession()
+    {
+        if (is_null(self::$sessionId)) {
+            throw new Exception('Session is not established. Please authorize to SugarCRM.');
+        }
     }
 }

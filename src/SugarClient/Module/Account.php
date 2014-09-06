@@ -5,5 +5,4 @@ use SugarClient\Module;
 
 class Account extends Module
 {
-
 }
