@@ -8,11 +8,13 @@ use SugarClient\Session;
 class FinderBuilder
 {
     private $module;
+    private $moduleObject;
     private $where;
 
-    public function __construct($module, $where)
+    public function __construct($module, $moduleObject, $where)
     {
         $this->module = $module;
+        $this->moduleObject = $moduleObject;
         $this->where = $this->prepareWhere($where);
     }
 
@@ -42,6 +44,27 @@ class FinderBuilder
             ->addEntry('deleted', 0)
             ->addEntry('favorites', false)
             ->toArray();
-        return Request::callMethod('get_entry_list', $parameters);
+        $results = Request::callMethod('get_entry_list', $parameters);
+        return $this->processResults($results);
+    }
+
+    private function processResults($results)
+    {
+        $modules = array();
+        foreach ($results->entry_list as $record) {
+            $modules[] = $this->convertRowToModule($record);
+        }
+        return $modules;
+    }
+
+    private function convertRowToModule($row)
+    {
+        $attributes = array();
+        foreach ($row->name_value_list as $data) {
+            $name = $data->name;
+            $value = $data->value;
+            $attributes[$name] = $value;
+        }
+        return $this->moduleObject->newInstance($attributes);
     }
 }

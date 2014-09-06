@@ -5,4 +5,8 @@ use SugarClient\Module;
 
 class Account extends Module
 {
+    public function __construct($attributes = array())
+    {
+        parent::__construct($attributes);
+    }
 }

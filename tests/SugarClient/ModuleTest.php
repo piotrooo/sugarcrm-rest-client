@@ -15,7 +15,7 @@ class ModuleTest extends PHPUnit_Framework_TestCase
         //when
         $account = Account::findByName('Airline Maintenance Co')->fetchAll();
 
-        print_r($account);
         //then
+        $this->assertEquals('Airline Maintenance Co', $account[0]->name);
     }
 }
