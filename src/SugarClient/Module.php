@@ -1,11 +1,13 @@
 <?php
 namespace SugarClient;
 
+use BadMethodCallException;
 use Ouzo\Utilities\Arrays;
 use Ouzo\Utilities\Inflector;
 use ReflectionClass;
 use SugarClient\Finder\DynamicFinder;
 use SugarClient\Finder\FinderBuilder;
+use SugarClient\Finder\WhereBuilder;
 
 abstract class Module
 {
@@ -34,6 +36,7 @@ abstract class Module
             $where = array_combine($dynamicFinder->getNames(), $arguments);
             return static::finderBuilder($where);
         }
+        throw new BadMethodCallException('Method [' . $name . '] not exists');
     }
 
     private static function finderBuilder($where)
@@ -41,6 +44,18 @@ abstract class Module
         $module = static::getModuleName();
         $moduleObject = static::newInstance();
         return new FinderBuilder($module, $moduleObject, $where);
+    }
+
+    public static function where($params)
+    {
+        return static::whereBuilder($params);
+    }
+
+    private static function whereBuilder($params)
+    {
+        $module = static::getModuleName();
+        $moduleObject = static::newInstance();
+        return new WhereBuilder($module, $moduleObject, $params);
     }
 
     public static function getModuleName()
