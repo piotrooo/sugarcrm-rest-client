@@ -1,6 +1,7 @@
 <?php
 namespace SugarClient\Finder;
 
+use SugarClient\Module;
 use SugarClient\ParametersBuilder;
 use SugarClient\Request;
 use SugarClient\Session;
@@ -50,7 +51,7 @@ class FinderBuilder
             ->addEntry('favorites', false)
             ->toArray();
         $results = Request::callMethod('get_entry_list', $parameters);
-        return $this->convertRowToModule($results->entry_list[0]);
+        return SearchHelper::convertRowToModule($results->entry_list[0], $this->moduleObject);
     }
 
     public function fetchAll()
@@ -68,26 +69,6 @@ class FinderBuilder
             ->addEntry('favorites', false)
             ->toArray();
         $results = Request::callMethod('get_entry_list', $parameters);
-        return $this->processResults($results);
-    }
-
-    private function processResults($results)
-    {
-        $modules = array();
-        foreach ($results->entry_list as $record) {
-            $modules[] = $this->convertRowToModule($record);
-        }
-        return $modules;
-    }
-
-    private function convertRowToModule($row)
-    {
-        $attributes = array();
-        foreach ($row->name_value_list as $data) {
-            $name = $data->name;
-            $value = $data->value;
-            $attributes[$name] = $value;
-        }
-        return $this->moduleObject->newInstance($attributes);
+        return SearchHelper::convertResultToModules($results, $this->moduleObject);
     }
 }

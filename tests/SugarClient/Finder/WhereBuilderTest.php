@@ -63,4 +63,19 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         //then
         $this->assertEquals("accounts.id in ('3432fdsf', '3423-dfs', '786sdv')", $whereBuilder->whereAsString());
     }
+
+    /**
+     * @test
+     */
+    public function shouldPrepareWhereFromString()
+    {
+        //given
+        $params = "accounts.name = 'some name' OR phone_office = '333222111'";
+
+        //when
+        $whereBuilder = new WhereBuilder('Accounts', new Account(), $params);
+
+        //then
+        $this->assertEquals($params, $whereBuilder->whereAsString());
+    }
 }

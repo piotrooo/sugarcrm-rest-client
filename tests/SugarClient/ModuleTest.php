@@ -1,4 +1,5 @@
 <?php
+use Ouzo\Tests\Assert;
 use SugarClient\Module\Account;
 use SugarClient\Session;
 
@@ -27,11 +28,11 @@ class ModuleTest extends PHPUnit_Framework_TestCase
      */
     public function shouldSearchUsingWhere()
     {
-        //given
-
         //when
         $account = Account::where(array('name' => "LIKE 'Q%'"))->fetchAll();
 
         //then
+        Assert::thatArray($account)->hasSize(2)
+            ->onProperty('name')->containsExactly('Q.R.&E. Corp', 'Q3 ARVRO III PR');
     }
 }
