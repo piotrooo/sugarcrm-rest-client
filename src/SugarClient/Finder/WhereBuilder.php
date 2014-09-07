@@ -1,17 +1,9 @@
 <?php
 namespace SugarClient\Finder;
 
-use SugarClient\ParametersBuilder;
-use SugarClient\Request;
-use SugarClient\Session;
-
-class WhereBuilder
+class WhereBuilder extends BaseBuilder
 {
-    private static $reservedKeywords = '/LIKE|IN/i';
-
-    private $module;
-    private $moduleObject;
-    private $where = '';
+    private static $reservedKeywordsRegExp = '/LIKE|IN/i';
 
     public function __construct($module, $moduleObject, $params)
     {
@@ -47,39 +39,11 @@ class WhereBuilder
 
     private function isValueHasReservedKeywords($string)
     {
-        return preg_match(self::$reservedKeywords, $string);
+        return preg_match(self::$reservedKeywordsRegExp, $string);
     }
 
     private function getAlias()
     {
         return strtolower($this->module);
-    }
-
-    public function whereAsString()
-    {
-        return $this->where;
-    }
-
-    public function __toString()
-    {
-        return $this->whereAsString();
-    }
-
-    public function fetchAll()
-    {
-        $parametersBuilder = new ParametersBuilder();
-        $parameters = $parametersBuilder
-            ->addEntry('session', Session::$sessionId)
-            ->addEntry('module_name', $this->module)
-            ->addEntry('query', $this->where)
-            ->addEntry('offset', 0)
-            ->addEntry('select_fields', '')
-            ->addEntry('link_name_to_fields_array', '')
-            ->addEntry('max_result', 100)
-            ->addEntry('deleted', 0)
-            ->addEntry('favorites', false)
-            ->toArray();
-        $results = Request::callMethod('get_entry_list', $parameters);
-        return SearchHelper::convertResultToModules($results, $this->moduleObject);
     }
 }
