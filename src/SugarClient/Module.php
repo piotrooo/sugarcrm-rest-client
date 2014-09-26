@@ -11,21 +11,21 @@ use SugarClient\Finder\WhereBuilder;
 
 abstract class Module
 {
-    private $_attributes = array();
+    private $attributes = array();
 
     public function __construct($attributes)
     {
-        $this->_attributes = $attributes;
+        $this->attributes = $attributes;
     }
 
     public function __set($name, $value)
     {
-        $this->_attributes[$name] = $value;
+        $this->attributes[$name] = $value;
     }
 
     public function __get($name)
     {
-        return Arrays::getValue($this->_attributes, $name);
+        return Arrays::getValue($this->attributes, $name);
     }
 
     public static function __callStatic($name, $arguments)
