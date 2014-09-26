@@ -29,10 +29,10 @@ class ModuleTest extends PHPUnit_Framework_TestCase
     public function shouldSearchUsingWhere()
     {
         //when
-        $account = Account::where(array('name' => "LIKE 'Q%'"))->fetchAll();
+        $accounts = Account::where(array('name' => "LIKE 'Q%'"))->fetchAll();
 
         //then
-        Assert::thatArray($account)->hasSize(2)
+        Assert::thatArray($accounts)->hasSize(2)
             ->onProperty('name')->containsExactly('Q.R.&E. Corp', 'Q3 ARVRO III PR');
     }
 }
