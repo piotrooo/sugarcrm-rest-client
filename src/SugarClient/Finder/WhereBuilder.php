@@ -20,7 +20,7 @@ class WhereBuilder extends BaseBuilder
                 $whereString .= $this->buildWhereForSingleValue($column, $value);
             }
             $whereString = rtrim($whereString, ' AND ');
-        } else if (is_string($params)) {
+        } elseif (is_string($params)) {
             $whereString = $params;
         }
         return $whereString;

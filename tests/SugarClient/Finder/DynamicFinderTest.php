@@ -48,4 +48,4 @@ class DynamicFinderTest extends PHPUnit_Framework_TestCase
         //then
         Assert::thatArray($match->getNames())->containsExactly('shipping_address_postalcode', 'name');
     }
-} 
+}
