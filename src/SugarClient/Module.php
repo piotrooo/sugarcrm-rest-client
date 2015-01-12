@@ -8,12 +8,13 @@ use ReflectionClass;
 use SugarClient\Finder\DynamicFinder;
 use SugarClient\Finder\FinderBuilder;
 use SugarClient\Finder\WhereBuilder;
+use SugarClient\Relation\Relation;
 
 abstract class Module
 {
     private $attributes = array();
 
-    public function __construct($attributes)
+    public function __construct($attributes = array())
     {
         $this->attributes = $attributes;
     }
@@ -25,7 +26,16 @@ abstract class Module
 
     public function __get($name)
     {
-        return Arrays::getValue($this->attributes, $name);
+        $value = Arrays::getValue($this->attributes, $name);
+        if ($value) {
+            return $value;
+        }
+        $relation = Relation::getRelation($this, $name);
+        $relation = $relation->fetchRelation();
+        if ($relation) {
+            return $this->attributes[$name] = $relation;
+        }
+        return null;
     }
 
     public static function __callStatic($name, $arguments)
@@ -33,7 +43,7 @@ abstract class Module
         Session::checkSession();
         $dynamicFinder = DynamicFinder::match($name);
         if ($dynamicFinder) {
-            $where = array_combine($dynamicFinder->getNames(), $arguments);
+            $where = Arrays::combine($dynamicFinder->getNames(), $arguments);
             return static::finderBuilder($where);
         }
         throw new BadMethodCallException('Method [' . $name . '] not exists');

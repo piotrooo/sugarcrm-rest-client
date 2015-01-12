@@ -35,4 +35,19 @@ class ModuleTest extends PHPUnit_Framework_TestCase
         Assert::thatArray($accounts)->hasSize(2)
             ->onProperty('name')->containsExactly('Q.R.&E. Corp', 'Q3 ARVRO III PR');
     }
+
+    /**
+     * @test
+     */
+    public function shouldGetRelation()
+    {
+        //given
+        $account = Account::findByName('Airline Maintenance Co')->fetch();
+
+        //when
+        $contacts = $account->contacts;
+
+        //then
+        Assert::thatArray($contacts)->hasSize(4);
+    }
 }
