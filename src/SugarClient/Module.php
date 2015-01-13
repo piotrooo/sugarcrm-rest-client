@@ -8,15 +8,18 @@ use ReflectionClass;
 use SugarClient\Finder\DynamicFinder;
 use SugarClient\Finder\FinderBuilder;
 use SugarClient\Finder\WhereBuilder;
-use SugarClient\Relation\Relation;
+use SugarClient\Relation\RelationFetcher;
+use SugarClient\Relation\Relations;
 
 abstract class Module
 {
     private $attributes = array();
+    private $relations;
 
-    public function __construct($attributes = array())
+    public function __construct($params = array())
     {
-        $this->attributes = $attributes;
+        $this->attributes = Arrays::getValue($params, 'attributes', array());
+        $this->relations = Relations::fromArray($params);
     }
 
     public function __set($name, $value)
@@ -30,10 +33,11 @@ abstract class Module
         if ($value) {
             return $value;
         }
-        $relation = Relation::getRelation($this, $name);
-        $relation = $relation->fetchRelation();
-        if ($relation) {
-            return $this->attributes[$name] = $relation;
+        if ($this->relations->hasRelation($name)) {
+            $relation = $this->relations->getRelation($name);
+            $relationFetcher = RelationFetcher::getRelation($this, $relation);
+            $result = $relationFetcher->fetchRelation();
+            return $this->attributes[$name] = $result;
         }
         return null;
     }

@@ -50,4 +50,18 @@ class ModuleTest extends PHPUnit_Framework_TestCase
         //then
         Assert::thatArray($contacts)->hasSize(4);
     }
+
+    /**
+     * @test
+     */
+    public function should()
+    {
+        //given
+        $var = \SugarClient\Module\Contact::findByLastName('Tibbs')->fetch();
+
+        print_r($var->account->id);
+        //when
+
+        //then
+    }
 }

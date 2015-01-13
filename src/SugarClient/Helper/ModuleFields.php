@@ -31,7 +31,6 @@ class ModuleFields
 
     public static function forModule($moduleName)
     {
-        $moduleName = ucfirst($moduleName);
         $parametersBuilder = new ParametersBuilder();
         $parameters = $parametersBuilder
             ->addEntry('session', Session::$sessionId)
