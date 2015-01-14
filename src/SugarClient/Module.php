@@ -22,11 +22,6 @@ abstract class Module
         $this->relations = Relations::fromArray($params);
     }
 
-    public function __set($name, $value)
-    {
-        $this->attributes[$name] = $value;
-    }
-
     public function __get($name)
     {
         $value = Arrays::getValue($this->attributes, $name);

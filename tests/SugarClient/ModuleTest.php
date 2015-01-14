@@ -82,4 +82,32 @@ class ModuleTest extends PHPUnit_Framework_TestCase
         Assert::thatArray($contacts)->hasSize(4)
             ->onProperty('full_name')->containsOnly('Jade Horta', 'Joshua Lacourse', 'Dante Tibbs', 'Agnes Foutz');
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnNullWhenAttributeOrRelationNotFound()
+    {
+        //given
+        $account = new Account();
+
+        //when
+        $var = $account->some_variable;
+
+        //then
+        $this->assertNull($var);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldThrowExceptionWhenTryToFindWrongMethod()
+    {
+        //when
+        try {
+            Account::wrongMethod();
+        } catch (BadMethodCallException $e) {//then
+            $this->assertEquals('Method [wrongMethod] not exists', $e->getMessage());
+        }
+    }
 }

@@ -16,11 +16,6 @@ class BaseBuilder
         return $this->where;
     }
 
-    public function __toString()
-    {
-        return $this->whereAsString();
-    }
-
     public function fetch()
     {
         $parametersBuilder = new ParametersBuilder();
