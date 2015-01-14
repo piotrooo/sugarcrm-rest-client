@@ -64,4 +64,19 @@ class ModuleTest extends PHPUnit_Framework_TestCase
 
         //then
     }
+
+    /**
+     * @test
+     */
+    public function shouldHasMany()
+    {
+        //given
+        $account = Account::findByName('Airline Maintenance Co')->fetch();
+
+        //when
+//        print_r($account);
+        print_r($account->contacts);
+
+        //then
+    }
 }

@@ -11,7 +11,7 @@ class Contact extends Module
         parent::__construct(array(
             'attributes' => $attributes,
             'belongsTo' => array(
-                'account' => BelongsTo::module('\SugarClient\Module\Account')
+                'account' => BelongsTo::module('Account')
             )
         ));
     }

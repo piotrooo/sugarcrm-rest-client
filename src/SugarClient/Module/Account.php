@@ -2,13 +2,17 @@
 namespace SugarClient\Module;
 
 use SugarClient\Module;
+use SugarClient\Relation\Type\HasMany;
 
 class Account extends Module
 {
     public function __construct($attributes = array())
     {
         parent::__construct(array(
-            'attributes' => $attributes
+            'attributes' => $attributes,
+            'hasMany' => array(
+                'contacts' => HasMany::module('Contact')
+            )
         ));
     }
 }

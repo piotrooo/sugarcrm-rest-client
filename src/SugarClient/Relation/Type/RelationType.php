@@ -1,24 +1,28 @@
 <?php
 namespace SugarClient\Relation\Type;
 
+use Ouzo\Utilities\Inflector;
 use SugarClient\Module;
 
 abstract class RelationType
 {
-    /**
-     * @var Module
-     */
     protected $module;
+
+    abstract public function isCollection();
 
     public function getModuleName()
     {
-        return ucfirst($this->getDbName());
+        return ucfirst($this->module);
     }
 
     public function getDbName()
     {
-        return strtolower($this->module->getModuleName());
+        return strtolower($this->module);
     }
 
-    abstract public function isCollection();
+    public static function module($module)
+    {
+        $module = Inflector::pluralize($module);
+        return new static($module);
+    }
 }

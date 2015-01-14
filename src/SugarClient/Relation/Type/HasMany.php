@@ -1,7 +1,7 @@
 <?php
 namespace SugarClient\Relation\Type;
 
-class BelongsTo extends RelationType
+class HasMany extends RelationType
 {
     public function __construct($module)
     {
@@ -10,6 +10,6 @@ class BelongsTo extends RelationType
 
     public function isCollection()
     {
-        return false;
+        return true;
     }
 }
