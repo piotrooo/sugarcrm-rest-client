@@ -1,8 +1,8 @@
 <?php
 namespace SugarClient\Finder;
 
+use SugarClient\Http\Request;
 use SugarClient\ParametersBuilder;
-use SugarClient\Request;
 use SugarClient\Session;
 
 class BaseBuilder

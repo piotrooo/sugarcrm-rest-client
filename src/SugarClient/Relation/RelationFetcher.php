@@ -4,10 +4,10 @@ namespace SugarClient\Relation;
 use SugarClient\Finder\SearchHelper;
 use SugarClient\Helper\ClassCreator;
 use SugarClient\Helper\ModuleFields;
+use SugarClient\Http\Request;
 use SugarClient\Module;
 use SugarClient\ParametersBuilder;
 use SugarClient\Relation\Type\RelationType;
-use SugarClient\Request;
 use SugarClient\Session;
 
 class RelationFetcher

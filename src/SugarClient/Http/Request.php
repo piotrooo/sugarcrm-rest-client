@@ -1,9 +1,35 @@
 <?php
-namespace SugarClient;
+namespace SugarClient\Http;
+
+use SugarClient\Http\ApiAction\RequestAction;
+use SugarClient\Session;
 
 class Request
 {
+    public static function call(RequestAction $requestAction)
+    {
+        $post = array(
+            "method" => $requestAction->getMethod(),
+            "input_type" => "JSON",
+            "response_type" => "JSON",
+            "rest_data" => $requestAction->getRestData()
+        );
+        return self::_doRequest($post);
+
+    }
+
     public static function callMethod($method, $parameters)
+    {
+        $post = array(
+            "method" => $method,
+            "input_type" => "JSON",
+            "response_type" => "JSON",
+            "rest_data" => json_encode($parameters)
+        );
+        return self::_doRequest($post);
+    }
+
+    private static function _doRequest($post)
     {
         ob_start();
         $request = curl_init();
@@ -15,13 +41,6 @@ class Request
         curl_setopt($request, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($request, CURLOPT_FOLLOWLOCATION, 0);
-
-        $post = array(
-            "method" => $method,
-            "input_type" => "JSON",
-            "response_type" => "JSON",
-            "rest_data" => json_encode($parameters)
-        );
 
         curl_setopt($request, CURLOPT_POSTFIELDS, $post);
         $result = curl_exec($request);

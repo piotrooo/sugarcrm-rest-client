@@ -3,9 +3,8 @@ namespace SugarClient\Helper;
 
 use Ouzo\Utilities\Arrays;
 use Ouzo\Utilities\Functions;
-use SugarClient\ParametersBuilder;
-use SugarClient\Request;
-use SugarClient\Session;
+use SugarClient\Http\Request;
+use SugarClient\Http\Requests;
 
 class ModuleFields
 {
@@ -31,12 +30,6 @@ class ModuleFields
 
     public static function forModule($moduleName)
     {
-        $parametersBuilder = new ParametersBuilder();
-        $parameters = $parametersBuilder
-            ->addEntry('session', Session::$sessionId)
-            ->addEntry('module_name', $moduleName)
-            ->addEntry('fields', array())
-            ->toArray();
-        return new self(Request::callMethod('get_module_fields', $parameters));
+        return new self(Request::call(Requests::getModuleFields($moduleName)));
     }
 }

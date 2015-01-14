@@ -2,6 +2,8 @@
 namespace SugarClient;
 
 use Exception;
+use SugarClient\Http\Request;
+use SugarClient\Http\Requests;
 
 class Session
 {
@@ -11,17 +13,7 @@ class Session
     public static function connect($url, $login, $password)
     {
         self::$url = $url;
-        $parameters = array(
-            'user_auth' => array(
-                'user_name' => $login,
-                'password' => md5($password),
-                'version' => 1
-            ),
-            'application_name' => 'RestTest',
-            'name_value_list' => array()
-        );
-
-        $result = Request::callMethod('login', $parameters);
+        $result = Request::call(Requests::login($login, $password));
         if (isset($result->number) && $result->number == 10) {
             throw new LoginException($result->name);
         }
