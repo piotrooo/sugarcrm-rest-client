@@ -3,13 +3,10 @@ namespace SugarClient\Relation;
 
 use SugarClient\Finder\SearchHelper;
 use SugarClient\Helper\ClassCreator;
-use SugarClient\Helper\ModuleFields;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
 use SugarClient\Module;
-use SugarClient\ParametersBuilder;
 use SugarClient\Relation\Type\RelationType;
-use SugarClient\Session;
 
 class RelationFetcher
 {
@@ -45,17 +42,6 @@ class RelationFetcher
 
     public static function getRelation(Module $module, RelationType $relation)
     {
-        $parametersBuilder = new ParametersBuilder();
-        $parameters = $parametersBuilder
-            ->addEntry('session', Session::$sessionId)
-            ->addEntry('module_name', $module->getModuleName())
-            ->addEntry('module_id', $module->id)
-            ->addEntry('link_field_name', $relation->getDbName())
-            ->addEntry('related_module_query', 0)
-            ->addEntry('related_fields', ModuleFields::forModule($relation->getModuleName())->all())
-            ->addEntry('related_module_link_name_to_fields_array', array())
-            ->addEntry('deleted', 0)
-            ->toArray();
         return new self($module, $relation);
     }
 }
