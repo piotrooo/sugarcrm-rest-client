@@ -1,6 +1,7 @@
 <?php
 use Ouzo\Tests\Assert;
 use SugarClient\Module\Account;
+use SugarClient\Module\Contact;
 use SugarClient\Session;
 
 class ModuleTest extends PHPUnit_Framework_TestCase
@@ -54,29 +55,31 @@ class ModuleTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function should()
+    public function shouldGetModuleUsingBelongsToRelation()
     {
         //given
-        $var = \SugarClient\Module\Contact::findByLastName('Tibbs')->fetch();
+        $contact = Contact::findByLastName('Tibbs')->fetch();
 
-        print_r($var->account->id);
         //when
+        $accountName = $contact->account->name;
 
         //then
+        $this->assertEquals('Airline Maintenance Co', $accountName);
     }
 
     /**
      * @test
      */
-    public function shouldHasMany()
+    public function shouldGetModuleUsingHasManyRelation()
     {
         //given
         $account = Account::findByName('Airline Maintenance Co')->fetch();
 
         //when
-//        print_r($account);
-        print_r($account->contacts);
+        $contacts = $account->contacts;
 
         //then
+        Assert::thatArray($contacts)->hasSize(4)
+            ->onProperty('full_name')->containsOnly('Jade Horta', 'Joshua Lacourse', 'Dante Tibbs', 'Agnes Foutz');
     }
 }

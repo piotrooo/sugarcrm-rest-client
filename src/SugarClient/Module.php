@@ -37,9 +37,15 @@ abstract class Module
             $relation = $this->relations->getRelation($name);
             $relationFetcher = RelationFetcher::getRelation($this, $relation);
             $result = $relationFetcher->fetchRelation();
-            return $this->attributes[$name] = $result;
+            $this->attributes[$name] = $result;
+            return $this->attributes[$name];
         }
         return null;
+    }
+
+    public function __isset($name)
+    {
+        return $this->__get($name) !== null;
     }
 
     public static function __callStatic($name, $arguments)
