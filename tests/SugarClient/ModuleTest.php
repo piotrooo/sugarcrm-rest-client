@@ -96,4 +96,30 @@ class ModuleTest extends PHPUnit_Framework_TestCase
             $this->assertEquals('Method [wrongMethod] not exists', $e->getMessage());
         }
     }
+
+    /**
+     * @test
+     */
+    public function shouldGetOnlySpecifiedFields()
+    {
+        //when
+        $account = Account::findByName('Airline Maintenance Co')->select('name', 'phone_office')->fetch();
+
+        //then
+        $this->assertEquals('Airline Maintenance Co', $account->name);
+        $this->assertEquals('(557) 632-9276', $account->phone_office);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGetOnlySpecifiedFieldsWhenQueryIsBildFromWhere()
+    {
+        //when
+        $account = Account::where(array('name' => "LIKE 'Airline%'"))->select('name', 'phone_office')->fetch();
+
+        //then
+        $this->assertEquals('Airline Maintenance Co', $account->name);
+        $this->assertEquals('(557) 632-9276', $account->phone_office);
+    }
 }

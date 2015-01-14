@@ -8,11 +8,13 @@ class GetEntryList implements RequestAction
 {
     private $moduleName;
     private $where;
+    private $fields;
 
-    public function __construct($moduleName, $where)
+    public function __construct($moduleName, $where, $fields)
     {
         $this->moduleName = $moduleName;
         $this->where = $where;
+        $this->fields = $fields;
     }
 
     public function getRestData()
@@ -23,7 +25,7 @@ class GetEntryList implements RequestAction
             'query' => $this->where,
             'order_by' => '',
             'offset' => 0,
-            'select_fields' => '',
+            'select_fields' => $this->fields,
             'link_name_to_fields_array' => '',
             'max_result' => 100,
             'deleted' => 0,
