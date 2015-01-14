@@ -4,7 +4,7 @@ namespace SugarClient\Http\ApiAction;
 use Ouzo\Utilities\Json;
 use SugarClient\Session;
 
-class ModuleFields implements RequestAction
+class GetModuleFields implements RequestAction
 {
     private $moduleName;
     private $fields;

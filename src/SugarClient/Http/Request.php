@@ -14,7 +14,7 @@ class Request
             "response_type" => "JSON",
             "rest_data" => $requestAction->getRestData()
         );
-        return self::_doRequest($post);
+        return self::doRequest($post);
     }
 
     public static function callMethod($method, $parameters)
@@ -25,10 +25,10 @@ class Request
             "response_type" => "JSON",
             "rest_data" => json_encode($parameters)
         );
-        return self::_doRequest($post);
+        return self::doRequest($post);
     }
 
-    private static function _doRequest($post)
+    private static function doRequest($post)
     {
         ob_start();
         $request = curl_init();

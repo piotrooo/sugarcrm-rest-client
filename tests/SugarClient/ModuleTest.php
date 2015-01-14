@@ -40,21 +40,6 @@ class ModuleTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldGetRelation()
-    {
-        //given
-        $account = Account::findByName('Airline Maintenance Co')->fetch();
-
-        //when
-        $contacts = $account->contacts;
-
-        //then
-        Assert::thatArray($contacts)->hasSize(4);
-    }
-
-    /**
-     * @test
-     */
     public function shouldGetModuleUsingBelongsToRelation()
     {
         //given
