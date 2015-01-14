@@ -15,7 +15,6 @@ class Request
             "rest_data" => $requestAction->getRestData()
         );
         return self::_doRequest($post);
-
     }
 
     public static function callMethod($method, $parameters)
