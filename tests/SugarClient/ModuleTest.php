@@ -91,7 +91,8 @@ class ModuleTest extends PHPUnit_Framework_TestCase
         //when
         try {
             Account::wrongMethod();
-        } catch (BadMethodCallException $e) {//then
+        } catch (BadMethodCallException $e) {
+            //then
             $this->assertEquals('Method [wrongMethod] not exists', $e->getMessage());
         }
     }
