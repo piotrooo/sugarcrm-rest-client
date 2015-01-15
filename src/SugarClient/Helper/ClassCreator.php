@@ -6,10 +6,10 @@ use Ouzo\Utilities\Strings;
 
 class ClassCreator
 {
-    public static function createModule($modelName)
+    public static function createModule($moduleName)
     {
-        $modelName = ucfirst(Inflector::singularize($modelName));
-        $modelName = Strings::appendPrefix($modelName, '\SugarClient\Module\\');
-        return new $modelName();
+        $moduleName = ucfirst(Inflector::singularize($moduleName));
+        $moduleName = Strings::appendPrefix($moduleName, '\SugarClient\Module\\');
+        return new $moduleName();
     }
 }

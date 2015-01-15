@@ -43,6 +43,11 @@ abstract class Module
         return $this->__get($name) !== null;
     }
 
+    public function getModuleDbName()
+    {
+        return strtolower($this->getModuleName());
+    }
+
     public static function __callStatic($name, $arguments)
     {
         Session::checkSession();
@@ -62,11 +67,6 @@ abstract class Module
     }
 
     public static function where($params)
-    {
-        return static::whereBuilder($params);
-    }
-
-    private static function whereBuilder($params)
     {
         $module = static::getModuleName();
         $moduleObject = static::newInstance();

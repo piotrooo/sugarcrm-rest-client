@@ -122,4 +122,34 @@ class ModuleTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Airline Maintenance Co', $account->name);
         $this->assertEquals('(557) 632-9276', $account->phone_office);
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnSugarCrmModuleName()
+    {
+        //given
+        $account = new Account();
+
+        //when
+        $moduleName = $account->getModuleName();
+
+        //then
+        $this->assertEquals('Accounts', $moduleName);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnSugarCrmModuleDbName()
+    {
+        //given
+        $account = new Account();
+
+        //when
+        $moduleName = $account->getModuleDbName();
+
+        //then
+        $this->assertEquals('accounts', $moduleName);
+    }
 }
