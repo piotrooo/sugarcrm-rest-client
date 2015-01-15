@@ -1,14 +1,17 @@
 <?php
 namespace SugarClient\Finder;
 
+use SugarClient\Core\Module;
 use SugarClient\Helper\Converter;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
 
-class BaseBuilder
+class BaseQueryBuilder
 {
+    /**
+     * @var Module
+     */
     protected $module;
-    protected $moduleObject;
     protected $where = '';
 
     private $fields = array();
@@ -26,13 +29,13 @@ class BaseBuilder
 
     public function fetch()
     {
-        $results = Request::call(Requests::getEntryList($this->module, $this->where, $this->fields));
-        return Converter::toModule($results->entry_list[0], $this->moduleObject);
+        $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
+        return Converter::toModule($results->entry_list[0], $this->module);
     }
 
     public function fetchAll()
     {
-        $results = Request::call(Requests::getEntryList($this->module, $this->where, $this->fields));
-        return Converter::toModules($results, $this->moduleObject);
+        $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
+        return Converter::toModules($results, $this->module);
     }
 }

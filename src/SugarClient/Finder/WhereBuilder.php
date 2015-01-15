@@ -1,14 +1,15 @@
 <?php
 namespace SugarClient\Finder;
 
-class WhereBuilder extends BaseBuilder
+use SugarClient\Core\Module;
+
+class WhereBuilder extends BaseQueryBuilder
 {
     private static $reservedKeywordsRegExp = '/LIKE|IN/i';
 
-    public function __construct($module, $moduleObject, $params)
+    public function __construct(Module $module, $params)
     {
         $this->module = $module;
-        $this->moduleObject = $moduleObject;
         $this->where = $this->prepareWhere($params);
     }
 
@@ -44,6 +45,6 @@ class WhereBuilder extends BaseBuilder
 
     private function getAlias()
     {
-        return strtolower($this->module);
+        return $this->module->getModuleDbName();
     }
 }

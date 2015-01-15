@@ -1,14 +1,13 @@
 <?php
 namespace SugarClient\Finder;
 
-use SugarClient\Module;
+use SugarClient\Core\Module;
 
-class FinderBuilder extends BaseBuilder
+class FinderBuilder extends BaseQueryBuilder
 {
-    public function __construct($module, $moduleObject, $where)
+    public function __construct(Module $module, $where)
     {
         $this->module = $module;
-        $this->moduleObject = $moduleObject;
         $this->where = $this->prepareWhere($where);
     }
 
@@ -17,7 +16,7 @@ class FinderBuilder extends BaseBuilder
         if (is_array($where)) {
             $whereString = '';
             foreach ($where as $column => $value) {
-                $whereString .= strtolower($this->module) . '.' . $column . " = '" . $value . "' AND ";
+                $whereString .= $this->module->getModuleDbName() . '.' . $column . " = '" . $value . "' AND ";
             }
             return rtrim($whereString, ' AND ');
         }

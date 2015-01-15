@@ -29,13 +29,18 @@ abstract class Module
             return $value;
         }
         if ($this->relations->hasRelation($name)) {
-            $relation = $this->relations->getRelation($name);
-            $relationFetcher = RelationFetcher::getRelation($this, $relation);
-            $result = $relationFetcher->fetchRelation();
-            $this->attributes[$name] = $result;
+            $this->fetchRelation($name);
             return $this->attributes[$name];
         }
         return null;
+    }
+
+    private function fetchRelation($name)
+    {
+        $relation = $this->relations->getRelation($name);
+        $relationFetcher = RelationFetcher::getRelation($this, $relation);
+        $result = $relationFetcher->fetchRelation();
+        $this->attributes[$name] = $result;
     }
 
     public function __isset($name)
@@ -61,16 +66,12 @@ abstract class Module
 
     private static function finderBuilder($where)
     {
-        $module = static::getModuleName();
-        $moduleObject = static::newInstance();
-        return new FinderBuilder($module, $moduleObject, $where);
+        return new FinderBuilder(static::newInstance(), $where);
     }
 
     public static function where($params)
     {
-        $module = static::getModuleName();
-        $moduleObject = static::newInstance();
-        return new WhereBuilder($module, $moduleObject, $params);
+        return new WhereBuilder(static::newInstance(), $params);
     }
 
     public static function getModuleName()
