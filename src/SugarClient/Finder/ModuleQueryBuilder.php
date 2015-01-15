@@ -6,17 +6,28 @@ use SugarClient\Helper\Converter;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
 
-class BaseQueryBuilder
+class ModuleQueryBuilder
 {
     /**
      * @var Module
      */
-    protected $module;
-    protected $where = '';
-
+    private $module;
+    private $where = '';
     private $fields = array();
 
-    public function whereAsString()
+    public function __construct(Module $module)
+    {
+        $this->module = $module;
+    }
+
+    public function where($params)
+    {
+        $whereBuilder = new WhereBuilder($this->module, $params);
+        $this->where = $whereBuilder->getWhere();
+        return $this;
+    }
+
+    public function getWhere()
     {
         return $this->where;
     }

@@ -5,7 +5,7 @@ use BadMethodCallException;
 use Ouzo\Utilities\Arrays;
 use Ouzo\Utilities\Inflector;
 use ReflectionClass;
-use SugarClient\Finder\WhereBuilder;
+use SugarClient\Finder\ModuleQueryBuilder;
 use SugarClient\Helper\DynamicFinder;
 use SugarClient\Relation\RelationFetcher;
 use SugarClient\Relation\Relations;
@@ -65,7 +65,12 @@ abstract class Module
 
     public static function where($params)
     {
-        return new WhereBuilder(static::newInstance(), $params);
+        return static::queryBuilder()->where($params);
+    }
+
+    public static function queryBuilder()
+    {
+        return new ModuleQueryBuilder(static::newInstance());
     }
 
     public static function getModuleName()

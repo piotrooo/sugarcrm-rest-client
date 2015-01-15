@@ -3,7 +3,7 @@ namespace SugarClient\Finder;
 
 use SugarClient\Core\Module;
 
-class WhereBuilder extends BaseQueryBuilder
+class WhereBuilder
 {
     private static $reservedKeywordsRegExp = '/(^| )(LIKE|IN)/i';
 
@@ -41,6 +41,11 @@ class WhereBuilder extends BaseQueryBuilder
     private function isValueHasReservedKeywords($string)
     {
         return preg_match(self::$reservedKeywordsRegExp, $string);
+    }
+
+    public function getWhere()
+    {
+        return $this->where;
     }
 
     private function getAlias()

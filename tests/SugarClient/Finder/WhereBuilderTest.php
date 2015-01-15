@@ -24,7 +24,7 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         $whereBuilder = new WhereBuilder($this->module, $params);
 
         //then
-        $this->assertEquals("accounts.name = 'some name'", $whereBuilder->whereAsString());
+        $this->assertEquals("accounts.name = 'some name'", $whereBuilder->getWhere());
     }
 
     /**
@@ -39,7 +39,7 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         $whereBuilder = new WhereBuilder($this->module, $params);
 
         //then
-        $this->assertEquals("accounts.name = 'some name' AND accounts.phone_office = '123456'", $whereBuilder->whereAsString());
+        $this->assertEquals("accounts.name = 'some name' AND accounts.phone_office = '123456'", $whereBuilder->getWhere());
     }
 
     /**
@@ -54,7 +54,7 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         $whereBuilder = new WhereBuilder($this->module, $params);
 
         //then
-        $this->assertEquals("accounts.name LIKE 'name%'", $whereBuilder->whereAsString());
+        $this->assertEquals("accounts.name LIKE 'name%'", $whereBuilder->getWhere());
     }
 
     /**
@@ -69,7 +69,7 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         $whereBuilder = new WhereBuilder($this->module, $params);
 
         //then
-        $this->assertEquals("accounts.id in ('3432fdsf', '3423-dfs', '786sdv')", $whereBuilder->whereAsString());
+        $this->assertEquals("accounts.id in ('3432fdsf', '3423-dfs', '786sdv')", $whereBuilder->getWhere());
     }
 
     /**
@@ -84,6 +84,6 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         $whereBuilder = new WhereBuilder($this->module, $params);
 
         //then
-        $this->assertEquals($params, $whereBuilder->whereAsString());
+        $this->assertEquals($params, $whereBuilder->getWhere());
     }
 }
