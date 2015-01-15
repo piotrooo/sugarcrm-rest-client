@@ -1,5 +1,5 @@
 <?php
-namespace SugarClient;
+namespace SugarClient\Core;
 
 use Exception;
 use SugarClient\Http\Request;

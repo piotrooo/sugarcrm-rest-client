@@ -1,11 +1,11 @@
 <?php
 namespace SugarClient\Relation;
 
+use SugarClient\Core\Module;
 use SugarClient\Helper\ClassCreator;
 use SugarClient\Helper\Converter;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
-use SugarClient\Module;
 use SugarClient\Relation\Type\RelationType;
 
 class RelationFetcher

@@ -1,7 +1,7 @@
 <?php
 use Ouzo\Tests\Assert;
+use SugarClient\Core\Session;
 use SugarClient\Helper\ModuleFields;
-use SugarClient\Session;
 
 class ModuleFieldsTest extends PHPUnit_Framework_TestCase
 {

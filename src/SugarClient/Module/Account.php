@@ -1,7 +1,7 @@
 <?php
 namespace SugarClient\Module;
 
-use SugarClient\Module;
+use SugarClient\Core\Module;
 use SugarClient\Relation\Type\HasMany;
 
 class Account extends Module

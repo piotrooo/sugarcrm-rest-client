@@ -2,9 +2,9 @@
 namespace SugarClient\Http\ApiAction;
 
 use Ouzo\Utilities\Json;
+use SugarClient\Core\Session;
 use SugarClient\Helper\ModuleFields;
 use SugarClient\Module;
-use SugarClient\Session;
 
 class GetRelationships implements RequestAction
 {

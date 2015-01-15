@@ -1,8 +1,8 @@
 <?php
 namespace SugarClient\Http;
 
+use SugarClient\Core\Session;
 use SugarClient\Http\ApiAction\RequestAction;
-use SugarClient\Session;
 
 class Request
 {

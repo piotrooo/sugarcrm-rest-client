@@ -2,7 +2,7 @@
 namespace SugarClient\Http\ApiAction;
 
 use Ouzo\Utilities\Json;
-use SugarClient\Session;
+use SugarClient\Core\Session;
 
 class GetEntryList implements RequestAction
 {

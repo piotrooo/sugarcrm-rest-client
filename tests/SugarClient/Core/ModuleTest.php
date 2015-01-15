@@ -1,8 +1,8 @@
 <?php
 use Ouzo\Tests\Assert;
+use SugarClient\Core\Session;
 use SugarClient\Module\Account;
 use SugarClient\Module\Contact;
-use SugarClient\Session;
 
 class ModuleTest extends PHPUnit_Framework_TestCase
 {

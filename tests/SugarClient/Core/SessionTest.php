@@ -1,11 +1,11 @@
 <?php
-use SugarClient\Session;
+use SugarClient\Core\Session;
 
 class SessionTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @expectedException \SugarClient\LoginException
+     * @expectedException \SugarClient\Core\LoginException
      */
     public function shouldThrowLoginExceptionWhenPasswordIsWrong()
     {

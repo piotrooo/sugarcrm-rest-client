@@ -2,7 +2,6 @@
 namespace SugarClient\Relation\Type;
 
 use Ouzo\Utilities\Inflector;
-use SugarClient\Module;
 
 abstract class RelationType
 {
