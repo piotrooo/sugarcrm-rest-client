@@ -1,6 +1,6 @@
 <?php
 use Ouzo\Tests\Assert;
-use SugarClient\Finder\DynamicFinder;
+use SugarClient\Helper\DynamicFinder;
 
 class DynamicFinderTest extends PHPUnit_Framework_TestCase
 {

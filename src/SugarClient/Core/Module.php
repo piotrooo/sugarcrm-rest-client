@@ -5,9 +5,8 @@ use BadMethodCallException;
 use Ouzo\Utilities\Arrays;
 use Ouzo\Utilities\Inflector;
 use ReflectionClass;
-use SugarClient\Finder\DynamicFinder;
-use SugarClient\Finder\FinderBuilder;
 use SugarClient\Finder\WhereBuilder;
+use SugarClient\Helper\DynamicFinder;
 use SugarClient\Relation\RelationFetcher;
 use SugarClient\Relation\Relations;
 
@@ -59,14 +58,9 @@ abstract class Module
         $dynamicFinder = DynamicFinder::match($name);
         if ($dynamicFinder) {
             $where = Arrays::combine($dynamicFinder->getNames(), $arguments);
-            return static::finderBuilder($where);
+            return static::where($where);
         }
         throw new BadMethodCallException('Method [' . $name . '] not exists');
-    }
-
-    private static function finderBuilder($where)
-    {
-        return new FinderBuilder(static::newInstance(), $where);
     }
 
     public static function where($params)

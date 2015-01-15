@@ -1,5 +1,5 @@
 <?php
-namespace SugarClient\Finder;
+namespace SugarClient\Helper;
 
 use Ouzo\Utilities\Arrays;
 use Ouzo\Utilities\Strings;

@@ -5,7 +5,7 @@ use SugarClient\Core\Module;
 
 class WhereBuilder extends BaseQueryBuilder
 {
-    private static $reservedKeywordsRegExp = '/LIKE|IN/i';
+    private static $reservedKeywordsRegExp = '/(^| )(LIKE|IN)/i';
 
     public function __construct(Module $module, $params)
     {

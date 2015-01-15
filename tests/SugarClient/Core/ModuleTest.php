@@ -27,6 +27,18 @@ class ModuleTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldSearchUsingSimpleWhere()
+    {
+        //when
+        $account = Account::where(array('name' => 'Airline Maintenance Co'))->fetch();
+
+        //then
+        $this->assertEquals('Airline Maintenance Co', $account->name);
+    }
+
+    /**
+     * @test
+     */
     public function shouldSearchUsingWhere()
     {
         //when
