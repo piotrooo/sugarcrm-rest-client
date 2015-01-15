@@ -1,18 +1,18 @@
 <?php
-namespace SugarClient\Finder;
+namespace SugarClient\Helper;
 
-class SearchHelper
+class Converter
 {
-    public static function convertResultToModules($results, $module)
+    public static function toModules($results, $module)
     {
         $modules = array();
         foreach ($results->entry_list as $row) {
-            $modules[] = self::convertRowToModule($row, $module);
+            $modules[] = self::toModule($row, $module);
         }
         return $modules;
     }
 
-    public static function convertRowToModule($row, $module)
+    public static function toModule($row, $module)
     {
         $attributes = array();
         foreach ($row->name_value_list as $data) {

@@ -1,8 +1,8 @@
 <?php
 namespace SugarClient\Relation;
 
-use SugarClient\Finder\SearchHelper;
 use SugarClient\Helper\ClassCreator;
+use SugarClient\Helper\Converter;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
 use SugarClient\Module;
@@ -35,9 +35,9 @@ class RelationFetcher
         $requestAction = Requests::getRelationships($this->module->getModuleName(), $this->module->id, $this->relation->getDbName(), $this->relation->getModuleName());
         $results = Request::call($requestAction);
         if ($this->relation->isCollection()) {
-            return SearchHelper::convertResultToModules($results, $this->relationModule);
+            return Converter::toModules($results, $this->relationModule);
         }
-        return SearchHelper::convertRowToModule($results->entry_list[0], $this->relationModule);
+        return Converter::toModule($results->entry_list[0], $this->relationModule);
     }
 
     public static function getRelation(Module $module, RelationType $relation)
