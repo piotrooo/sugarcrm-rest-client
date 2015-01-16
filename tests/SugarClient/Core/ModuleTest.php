@@ -1,5 +1,9 @@
 <?php
+namespace Tests\SugarClient\Core;
+
+use BadMethodCallException;
 use Ouzo\Tests\Assert;
+use PHPUnit_Framework_TestCase;
 use SugarClient\Core\Session;
 use SugarClient\Module\Account;
 use SugarClient\Module\Contact;

@@ -1,5 +1,8 @@
 <?php
+namespace Tests\SugarClient\Helper;
+
 use Ouzo\Tests\Assert;
+use PHPUnit_Framework_TestCase;
 use SugarClient\Core\Session;
 use SugarClient\Helper\ModuleFields;
 

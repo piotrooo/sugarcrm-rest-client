@@ -1,4 +1,7 @@
 <?php
+namespace Tests\SugarClient\Core;
+
+use PHPUnit_Framework_TestCase;
 use SugarClient\Core\WhereBuilder;
 use SugarClient\Module\Account;
 

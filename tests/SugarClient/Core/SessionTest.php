@@ -1,4 +1,7 @@
 <?php
+namespace Tests\SugarClient\Core;
+
+use PHPUnit_Framework_TestCase;
 use SugarClient\Core\Session;
 
 class SessionTest extends PHPUnit_Framework_TestCase
@@ -10,7 +13,7 @@ class SessionTest extends PHPUnit_Framework_TestCase
     public function shouldThrowLoginExceptionWhenPasswordIsWrong()
     {
         //when
-        Session::connect('http://localhost/SugarCE-Full-6.5.17/service/v4_1/rest.php', 'admin', 'wrong pasword');
+        Session::connect('http://localhost/SugarCE-Full-6.5.17/service/v4_1/rest.php', 'admin', 'wrong password');
     }
 
     /**
