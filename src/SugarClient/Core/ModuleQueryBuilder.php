@@ -19,7 +19,7 @@ class ModuleQueryBuilder
     private $module;
     private $where = '';
     private $fields = array();
-    private $relationName;
+    private $relationName = null;
     private $relationFields = array();
 
     public function __construct(Module $module)
@@ -47,11 +47,18 @@ class ModuleQueryBuilder
         return $this;
     }
 
+    private function isRelationToFetch()
+    {
+        return !is_null($this->relationName);
+    }
+
     public function fetch()
     {
         $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
         $module = Converter::toModule($results->entry_list[0], $this->module);
-        $module->fetchRelation($this->relationName, $this->relationFields);
+        if ($this->isRelationToFetch()) {
+            $module->fetchRelation($this->relationName, $this->relationFields);
+        }
         return $module;
     }
 
@@ -60,10 +67,12 @@ class ModuleQueryBuilder
         $obj = $this;
         $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
         $modules = Converter::toModules($results, $this->module);
-        $modules = Arrays::map($modules, function (Module $module) use ($obj) {
-            $module->fetchRelation($obj->relationName, $obj->relationFields);
-            return $module;
-        });
+        if ($this->isRelationToFetch()) {
+            $modules = Arrays::map($modules, function (Module $module) use ($obj) {
+                $module->fetchRelation($obj->relationName, $obj->relationFields);
+                return $module;
+            });
+        }
         return $modules;
     }
 }
