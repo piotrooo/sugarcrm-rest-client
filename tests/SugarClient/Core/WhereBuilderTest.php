@@ -1,5 +1,5 @@
 <?php
-use SugarClient\Finder\WhereBuilder;
+use SugarClient\Core\WhereBuilder;
 use SugarClient\Module\Account;
 
 class WhereBuilderTest extends PHPUnit_Framework_TestCase

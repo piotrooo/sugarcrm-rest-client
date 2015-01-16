@@ -1,7 +1,5 @@
 <?php
-namespace SugarClient\Finder;
-
-use SugarClient\Core\Module;
+namespace SugarClient\Core;
 
 class WhereBuilder
 {

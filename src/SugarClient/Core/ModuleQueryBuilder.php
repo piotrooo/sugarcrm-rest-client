@@ -1,7 +1,6 @@
 <?php
-namespace SugarClient\Finder;
+namespace SugarClient\Core;
 
-use SugarClient\Core\Module;
 use SugarClient\Helper\Converter;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;

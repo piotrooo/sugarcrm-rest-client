@@ -5,7 +5,6 @@ use BadMethodCallException;
 use Ouzo\Utilities\Arrays;
 use Ouzo\Utilities\Inflector;
 use ReflectionClass;
-use SugarClient\Finder\ModuleQueryBuilder;
 use SugarClient\Helper\DynamicFinder;
 use SugarClient\Relation\RelationFetcher;
 use SugarClient\Relation\Relations;
