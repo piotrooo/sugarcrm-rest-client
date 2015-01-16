@@ -54,6 +54,7 @@ class ModuleQueryBuilder
 
     public function fetch()
     {
+        Session::checkSession();
         $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
         $module = Converter::toModule($results->entry_list[0], $this->module);
         if ($this->isRelationToFetch()) {
@@ -64,6 +65,7 @@ class ModuleQueryBuilder
 
     public function fetchAll()
     {
+        Session::checkSession();
         $obj = $this;
         $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
         $modules = Converter::toModules($results, $this->module);

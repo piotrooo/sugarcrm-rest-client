@@ -3,19 +3,12 @@ namespace Tests\SugarClient\Core;
 
 use BadMethodCallException;
 use Ouzo\Tests\Assert;
-use PHPUnit_Framework_TestCase;
-use SugarClient\Core\Session;
 use SugarClient\Module\Account;
 use SugarClient\Module\Contact;
+use Tests\TestCase\SessionSugarTestCase;
 
-class ModuleTest extends PHPUnit_Framework_TestCase
+class ModuleTest extends SessionSugarTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        Session::connect('http://localhost/SugarCE-Full-6.5.17/service/v4_1/rest.php', 'admin', 'piotr123');
-    }
-
     /**
      * @test
      */

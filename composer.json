@@ -14,6 +14,11 @@
       "SugarClient\\": "src/SugarClient/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
   "require": {
     "phpunit/phpunit": "4.4.1",
     "letsdrink/ouzo-goodies": "dev-master"
