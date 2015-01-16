@@ -6,6 +6,11 @@ use SugarClient\Core\Session;
 use SugarClient\Helper\ModuleFields;
 use SugarClient\Module;
 
+/**
+ * Class GetRelationships
+ * @package SugarClient\Http\ApiAction
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class GetRelationships implements RequestAction
 {
     private $moduleName;

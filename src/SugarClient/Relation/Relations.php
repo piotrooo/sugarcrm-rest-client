@@ -3,6 +3,11 @@ namespace SugarClient\Relation;
 
 use Ouzo\Utilities\Arrays;
 
+/**
+ * Class Relations
+ * @package SugarClient\Relation
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class Relations
 {
     private static $relationNames = array('hasOne', 'belongsTo', 'hasMany');

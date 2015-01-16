@@ -4,6 +4,11 @@ namespace SugarClient\Http;
 use SugarClient\Core\Session;
 use SugarClient\Http\ApiAction\RequestAction;
 
+/**
+ * Class Request
+ * @package SugarClient\Http
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class Request
 {
     public static function call(RequestAction $requestAction)

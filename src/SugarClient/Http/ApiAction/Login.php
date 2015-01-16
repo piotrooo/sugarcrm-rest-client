@@ -3,6 +3,11 @@ namespace SugarClient\Http\ApiAction;
 
 use Ouzo\Utilities\Json;
 
+/**
+ * Class Login
+ * @package SugarClient\Http\ApiAction
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class Login implements RequestAction
 {
     private $login;

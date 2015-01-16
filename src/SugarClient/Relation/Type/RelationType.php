@@ -3,6 +3,11 @@ namespace SugarClient\Relation\Type;
 
 use Ouzo\Utilities\Inflector;
 
+/**
+ * Class RelationType
+ * @package SugarClient\Relation\Type
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 abstract class RelationType
 {
     protected $module;

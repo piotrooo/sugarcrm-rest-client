@@ -8,6 +8,11 @@ use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
 use SugarClient\Relation\Type\RelationType;
 
+/**
+ * Class RelationFetcher
+ * @package SugarClient\Relation
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class RelationFetcher
 {
     /**

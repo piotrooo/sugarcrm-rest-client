@@ -5,6 +5,11 @@ use SugarClient\Helper\Converter;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
 
+/**
+ * Class ModuleQueryBuilder
+ * @package SugarClient\Core
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class ModuleQueryBuilder
 {
     /**

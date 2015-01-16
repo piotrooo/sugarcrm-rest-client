@@ -9,6 +9,11 @@ use SugarClient\Helper\DynamicFinder;
 use SugarClient\Relation\RelationFetcher;
 use SugarClient\Relation\Relations;
 
+/**
+ * Class Module
+ * @package SugarClient\Core
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 abstract class Module
 {
     private $attributes = array();

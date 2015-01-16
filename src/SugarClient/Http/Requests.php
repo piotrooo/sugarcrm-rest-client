@@ -6,6 +6,11 @@ use SugarClient\Http\ApiAction\GetModuleFields;
 use SugarClient\Http\ApiAction\GetRelationships;
 use SugarClient\Http\ApiAction\Login;
 
+/**
+ * Class Requests
+ * @package SugarClient\Http
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class Requests
 {
     public static function login($login, $password)

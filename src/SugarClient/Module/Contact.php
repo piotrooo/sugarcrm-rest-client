@@ -4,6 +4,11 @@ namespace SugarClient\Module;
 use SugarClient\Core\Module;
 use SugarClient\Relation\Type\BelongsTo;
 
+/**
+ * Class Contact
+ * @package SugarClient\Module
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class Contact extends Module
 {
     public function __construct($attributes = array())

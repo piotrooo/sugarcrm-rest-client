@@ -1,6 +1,11 @@
 <?php
 namespace SugarClient\Core;
 
+/**
+ * Class WhereBuilder
+ * @package SugarClient\Core
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class WhereBuilder
 {
     private static $reservedKeywordsRegExp = '/(^| )(LIKE|IN)/i';

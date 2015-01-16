@@ -4,6 +4,11 @@ namespace SugarClient\Helper;
 use Ouzo\Utilities\Arrays;
 use Ouzo\Utilities\Strings;
 
+/**
+ * Class DynamicFinder
+ * @package SugarClient\Helper
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class DynamicFinder
 {
     private $method;

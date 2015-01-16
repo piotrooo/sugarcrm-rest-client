@@ -4,6 +4,11 @@ namespace SugarClient\Http\ApiAction;
 use Ouzo\Utilities\Json;
 use SugarClient\Core\Session;
 
+/**
+ * Class GetEntryList
+ * @package SugarClient\Http\ApiAction
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class GetEntryList implements RequestAction
 {
     private $moduleName;

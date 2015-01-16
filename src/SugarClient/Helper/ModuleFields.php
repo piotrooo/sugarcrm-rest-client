@@ -6,6 +6,11 @@ use Ouzo\Utilities\Functions;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
 
+/**
+ * Class ModuleFields
+ * @package SugarClient\Helper
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class ModuleFields
 {
     private $result;

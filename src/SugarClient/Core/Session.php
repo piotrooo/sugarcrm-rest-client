@@ -5,6 +5,11 @@ use Exception;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
 
+/**
+ * Class Session
+ * @package SugarClient\Core
+ * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
+ */
 class Session
 {
     public static $url;
