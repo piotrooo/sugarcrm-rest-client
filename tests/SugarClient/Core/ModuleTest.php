@@ -212,7 +212,7 @@ class ModuleTest extends SessionSugarTestCase
     /**
      * @test
      */
-    public function shouldMultipleJoin()
+    public function shouldMultipleJoins()
     {
         //given
         $account = Account::findByName('Airline Maintenance Co')

@@ -1,6 +1,7 @@
 <?php
 namespace SugarClient\Core;
 
+use Exception;
 use Ouzo\Utilities\Arrays;
 use SugarClient\Helper\Converter;
 use SugarClient\Http\Request;
@@ -17,8 +18,8 @@ class ModuleQueryBuilder
      * @var Module
      */
     private $module;
-    private $where = '';
     private $fields = array();
+    private $where = '';
     /**
      * @var JoinClause[]
      */
@@ -48,6 +49,10 @@ class ModuleQueryBuilder
         return $this;
     }
 
+    /**
+     * @return Module
+     * @throws Exception
+     */
     public function fetch()
     {
         Session::checkSession();
@@ -59,6 +64,10 @@ class ModuleQueryBuilder
         return $module;
     }
 
+    /**
+     * @return Module[]
+     * @throws Exception
+     */
     public function fetchAll()
     {
         Session::checkSession();
