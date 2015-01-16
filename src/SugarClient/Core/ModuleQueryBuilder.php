@@ -26,7 +26,7 @@ class ModuleQueryBuilder
 
     public function where($params)
     {
-        $whereBuilder = new WhereBuilder($this->module, $params);
+        $whereBuilder = new WhereClause($this->module, $params);
         $this->where = $whereBuilder->getWhere();
         return $this;
     }

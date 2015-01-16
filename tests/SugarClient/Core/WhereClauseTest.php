@@ -2,10 +2,10 @@
 namespace Tests\SugarClient\Core;
 
 use PHPUnit_Framework_TestCase;
-use SugarClient\Core\WhereBuilder;
+use SugarClient\Core\WhereClause;
 use SugarClient\Module\Account;
 
-class WhereBuilderTest extends PHPUnit_Framework_TestCase
+class WhereClauseTest extends PHPUnit_Framework_TestCase
 {
     private $module;
 
@@ -24,7 +24,7 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         $params = array('name' => 'some name');
 
         //when
-        $whereBuilder = new WhereBuilder($this->module, $params);
+        $whereBuilder = new WhereClause($this->module, $params);
 
         //then
         $this->assertEquals("accounts.name = 'some name'", $whereBuilder->getWhere());
@@ -39,7 +39,7 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         $params = array('name' => 'some name', 'phone_office' => '123456');
 
         //when
-        $whereBuilder = new WhereBuilder($this->module, $params);
+        $whereBuilder = new WhereClause($this->module, $params);
 
         //then
         $this->assertEquals("accounts.name = 'some name' AND accounts.phone_office = '123456'", $whereBuilder->getWhere());
@@ -54,7 +54,7 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         $params = array('name' => "LIKE 'name%'");
 
         //when
-        $whereBuilder = new WhereBuilder($this->module, $params);
+        $whereBuilder = new WhereClause($this->module, $params);
 
         //then
         $this->assertEquals("accounts.name LIKE 'name%'", $whereBuilder->getWhere());
@@ -69,7 +69,7 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         $params = array('id' => "in ('3432fdsf', '3423-dfs', '786sdv')");
 
         //when
-        $whereBuilder = new WhereBuilder($this->module, $params);
+        $whereBuilder = new WhereClause($this->module, $params);
 
         //then
         $this->assertEquals("accounts.id in ('3432fdsf', '3423-dfs', '786sdv')", $whereBuilder->getWhere());
@@ -84,7 +84,7 @@ class WhereBuilderTest extends PHPUnit_Framework_TestCase
         $params = "accounts.name = 'some name' OR phone_office = '333222111'";
 
         //when
-        $whereBuilder = new WhereBuilder($this->module, $params);
+        $whereBuilder = new WhereClause($this->module, $params);
 
         //then
         $this->assertEquals($params, $whereBuilder->getWhere());
