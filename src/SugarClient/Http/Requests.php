@@ -1,6 +1,7 @@
 <?php
 namespace SugarClient\Http;
 
+use SugarClient\Http\ApiAction\GetAvailableModules;
 use SugarClient\Http\ApiAction\GetEntryList;
 use SugarClient\Http\ApiAction\GetModuleFields;
 use SugarClient\Http\ApiAction\GetRelationships;
@@ -31,5 +32,10 @@ class Requests
     public static function getRelationships($moduleName, $moduleId, $relationModuleDbName, $relationModuleName, array $fields = array())
     {
         return new GetRelationships($moduleName, $moduleId, $relationModuleDbName, $relationModuleName, $fields);
+    }
+
+    public static function getAvailableModules()
+    {
+        return new GetAvailableModules();
     }
 }
