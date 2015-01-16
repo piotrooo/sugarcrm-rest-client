@@ -16,7 +16,8 @@ class Account extends Module
         parent::__construct(array(
             'attributes' => $attributes,
             'hasMany' => array(
-                'contacts' => HasMany::module('Contact')
+                'contacts' => HasMany::module('Contact'),
+                'leads' => HasMany::module('Lead')
             )
         ));
     }

@@ -19,8 +19,10 @@ class ModuleQueryBuilder
     private $module;
     private $where = '';
     private $fields = array();
-    private $relationName = null;
-    private $relationFields = array();
+    /**
+     * @var JoinClause[]
+     */
+    private $joined = array();
 
     public function __construct(Module $module)
     {
@@ -42,14 +44,8 @@ class ModuleQueryBuilder
 
     public function join($relationName, array $relationFields = array())
     {
-        $this->relationName = $relationName;
-        $this->relationFields = $relationFields;
+        $this->joined[] = new JoinClause($relationName, $relationFields);
         return $this;
-    }
-
-    private function isRelationToFetch()
-    {
-        return !is_null($this->relationName);
     }
 
     public function fetch()
@@ -57,8 +53,8 @@ class ModuleQueryBuilder
         Session::checkSession();
         $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
         $module = Converter::toModule($results->entry_list[0], $this->module);
-        if ($this->isRelationToFetch()) {
-            $module->fetchRelation($this->relationName, $this->relationFields);
+        foreach ($this->joined as $join) {
+            $module->fetchRelation($join->getRelationName(), $join->getRelationFields());
         }
         return $module;
     }
@@ -66,12 +62,11 @@ class ModuleQueryBuilder
     public function fetchAll()
     {
         Session::checkSession();
-        $obj = $this;
         $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
         $modules = Converter::toModules($results, $this->module);
-        if ($this->isRelationToFetch()) {
-            $modules = Arrays::map($modules, function (Module $module) use ($obj) {
-                $module->fetchRelation($obj->relationName, $obj->relationFields);
+        foreach ($this->joined as $join) {
+            $modules = Arrays::map($modules, function (Module $module) use ($join) {
+                $module->fetchRelation($join->getRelationName(), $join->getRelationFields());
                 return $module;
             });
         }

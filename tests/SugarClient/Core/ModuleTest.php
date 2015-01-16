@@ -208,4 +208,24 @@ class ModuleTest extends SessionSugarTestCase
         Assert::thatArray($accounts[1]->contacts)->hasSize(7)
             ->onProperty('last_name')->containsExactly("Mccaulley", "Raker", "Crespo", "Barros", "Marriott", "Ottley", "Hildebrandt");
     }
+
+    /**
+     * @test
+     */
+    public function shouldMultipleJoin()
+    {
+        //given
+        $account = Account::findByName('Airline Maintenance Co')
+            ->join('contacts')
+            ->join('leads')
+            ->fetch();
+
+        //when
+        $contacts = $account->contacts;
+        $leads = $account->leads;
+
+        //then
+        $this->assertCount(4, $contacts);
+        $this->assertCount(1, $leads);
+    }
 }
