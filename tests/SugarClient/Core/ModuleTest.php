@@ -168,4 +168,51 @@ class ModuleTest extends PHPUnit_Framework_TestCase
         //then
         $this->assertEquals('accounts', $moduleName);
     }
+
+    /**
+     * @test
+     */
+    public function shouldFetchJoinedRelation()
+    {
+        //given
+        $contact = Contact::where(array('last_name' => 'Tibbs'))->join('account')->fetch();
+
+        //when
+        $name = $contact->account->name;
+
+        //then
+        $this->assertEquals('Airline Maintenance Co', $name);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFetchJoinedRelationWithSpecificFields()
+    {
+        //given
+        $contact = Contact::where(array('last_name' => 'Tibbs'))->join('account', array('id', 'name'))->fetch();
+
+        //when
+        $attributes = $contact->account->getAttributes();
+
+        //then
+        Assert::thatArray($attributes)->hasSize(2)
+            ->containsKeyAndValue(array('id' => 'c64beab6-d6b8-a091-7ea4-5404b0908e80', 'name' => 'Airline Maintenance Co'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldJoinRelationsWhenFetchAll()
+    {
+        //when
+        $accounts = Account::where(array('name' => "LIKE 'Q%'"))->join('contacts', array('id', 'last_name'))->fetchAll();
+
+        //then
+        Assert::thatArray($accounts)->hasSize(2);
+        Assert::thatArray($accounts[0]->contacts)->hasSize(4)
+            ->onProperty('last_name')->containsExactly("Tokarz", "Pelt", "Dangelo", "Galusha");
+        Assert::thatArray($accounts[1]->contacts)->hasSize(7)
+            ->onProperty('last_name')->containsExactly("Mccaulley", "Raker", "Crespo", "Barros", "Marriott", "Ottley", "Hildebrandt");
+    }
 }

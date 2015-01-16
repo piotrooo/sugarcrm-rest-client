@@ -17,13 +17,15 @@ class GetRelationships implements RequestAction
     private $moduleId;
     private $relationModuleDbName;
     private $relationModuleName;
+    private $fields;
 
-    public function __construct($moduleName, $moduleId, $relationModuleDbName, $relationModuleName)
+    public function __construct($moduleName, $moduleId, $relationModuleDbName, $relationModuleName, array $fields = array())
     {
         $this->moduleName = $moduleName;
         $this->moduleId = $moduleId;
         $this->relationModuleDbName = $relationModuleDbName;
         $this->relationModuleName = $relationModuleName;
+        $this->fields = empty($fields) ? ModuleFields::forModule($this->relationModuleName)->all() : $fields;
     }
 
     public function getRestData()
@@ -34,7 +36,7 @@ class GetRelationships implements RequestAction
             'module_id' => $this->moduleId,
             'link_field_name' => $this->relationModuleDbName,
             'related_module_query' => 0,
-            'related_fields' => ModuleFields::forModule($this->relationModuleName)->all(),
+            'related_fields' => $this->fields,
             'related_module_link_name_to_fields_array' => array(),
             'deleted' => 0
         );

@@ -10,6 +10,11 @@ use SugarClient\Core\Module;
  */
 class Converter
 {
+    /**
+     * @param $results
+     * @param Module $module
+     * @return Module[]
+     */
     public static function toModules($results, Module $module)
     {
         $modules = array();
@@ -19,6 +24,11 @@ class Converter
         return $modules;
     }
 
+    /**
+     * @param $row
+     * @param Module $module
+     * @return Module
+     */
     public static function toModule($row, Module $module)
     {
         $attributes = array();

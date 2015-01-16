@@ -35,9 +35,9 @@ class RelationFetcher
         $this->relation = $relation;
     }
 
-    public function fetchRelation()
+    public function fetchRelation(array $fields = array())
     {
-        $requestAction = Requests::getRelationships($this->module->getModuleName(), $this->module->id, $this->relation->getDbName(), $this->relation->getModuleName());
+        $requestAction = Requests::getRelationships($this->module->getModuleName(), $this->module->id, $this->relation->getDbName(), $this->relation->getModuleName(), $fields);
         $results = Request::call($requestAction);
         if ($this->relation->isCollection()) {
             return Converter::toModules($results, $this->relationModule);

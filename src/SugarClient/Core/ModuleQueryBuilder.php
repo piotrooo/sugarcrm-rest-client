@@ -1,6 +1,7 @@
 <?php
 namespace SugarClient\Core;
 
+use Ouzo\Utilities\Arrays;
 use SugarClient\Helper\Converter;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
@@ -18,10 +19,18 @@ class ModuleQueryBuilder
     private $module;
     private $where = '';
     private $fields = array();
+    private $relationName;
+    private $relationFields = array();
 
     public function __construct(Module $module)
     {
         $this->module = $module;
+    }
+
+    public function select()
+    {
+        $this->fields = func_get_args();
+        return $this;
     }
 
     public function where($params)
@@ -31,26 +40,30 @@ class ModuleQueryBuilder
         return $this;
     }
 
-    public function getWhere()
+    public function join($relationName, array $relationFields = array())
     {
-        return $this->where;
-    }
-
-    public function select()
-    {
-        $this->fields = func_get_args();
+        $this->relationName = $relationName;
+        $this->relationFields = $relationFields;
         return $this;
     }
 
     public function fetch()
     {
         $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
-        return Converter::toModule($results->entry_list[0], $this->module);
+        $module = Converter::toModule($results->entry_list[0], $this->module);
+        $module->fetchRelation($this->relationName, $this->relationFields);
+        return $module;
     }
 
     public function fetchAll()
     {
+        $obj = $this;
         $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
-        return Converter::toModules($results, $this->module);
+        $modules = Converter::toModules($results, $this->module);
+        $modules = Arrays::map($modules, function (Module $module) use ($obj) {
+            $module->fetchRelation($obj->relationName, $obj->relationFields);
+            return $module;
+        });
+        return $modules;
     }
 }

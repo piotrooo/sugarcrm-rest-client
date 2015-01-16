@@ -23,13 +23,13 @@ class Requests
         return new GetModuleFields($moduleName, $fields);
     }
 
-    public static function getEntryList($moduleName, $where, $fields)
+    public static function getEntryList($moduleName, $where, array $fields = array())
     {
         return new GetEntryList($moduleName, $where, $fields);
     }
 
-    public static function getRelationships($moduleName, $moduleId, $relationModuleDbName, $relationModuleName)
+    public static function getRelationships($moduleName, $moduleId, $relationModuleDbName, $relationModuleName, array $fields = array())
     {
-        return new GetRelationships($moduleName, $moduleId, $relationModuleDbName, $relationModuleName);
+        return new GetRelationships($moduleName, $moduleId, $relationModuleDbName, $relationModuleName, $fields);
     }
 }

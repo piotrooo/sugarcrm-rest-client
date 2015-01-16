@@ -38,17 +38,22 @@ abstract class Module
         return null;
     }
 
-    private function fetchRelation($name)
+    public function fetchRelation($name, array $fields = array())
     {
         $relation = $this->relations->getRelation($name);
         $relationFetcher = RelationFetcher::getRelation($this, $relation);
-        $result = $relationFetcher->fetchRelation();
+        $result = $relationFetcher->fetchRelation($fields);
         $this->attributes[$name] = $result;
     }
 
     public function __isset($name)
     {
         return $this->__get($name) !== null;
+    }
+
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 
     public function getModuleDbName()
@@ -67,14 +72,28 @@ abstract class Module
         throw new BadMethodCallException('Method [' . $name . '] not exists');
     }
 
+    public static function queryBuilder()
+    {
+        return new ModuleQueryBuilder(static::newInstance());
+    }
+
+    /**
+     * @param $params
+     * @return ModuleQueryBuilder
+     */
     public static function where($params)
     {
         return static::queryBuilder()->where($params);
     }
 
-    public static function queryBuilder()
+    /**
+     * @param $relationName
+     * @param array $relationFields
+     * @return ModuleQueryBuilder
+     */
+    public static function join($relationName, array $relationFields = array())
     {
-        return new ModuleQueryBuilder(static::newInstance());
+        return static::queryBuilder()->join($relationName, $relationFields);
     }
 
     public static function getModuleName()
