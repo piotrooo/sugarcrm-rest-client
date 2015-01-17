@@ -24,9 +24,9 @@ class Requests
         return new GetModuleFields($moduleName, $fields);
     }
 
-    public static function getEntryList($moduleName, $where, array $fields = array())
+    public static function getEntryList($moduleName, $where, array $fields = array(), $orderBy = '')
     {
-        return new GetEntryList($moduleName, $where, $fields);
+        return new GetEntryList($moduleName, $where, $fields, $orderBy);
     }
 
     public static function getRelationships($moduleName, $moduleId, $relationModuleDbName, $relationModuleName, array $fields = array())

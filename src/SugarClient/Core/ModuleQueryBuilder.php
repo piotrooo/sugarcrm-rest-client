@@ -43,6 +43,12 @@ class ModuleQueryBuilder
         return $this;
     }
 
+    public function order($orderClause)
+    {
+        $this->query->order($orderClause);
+        return $this;
+    }
+
     /**
      * @return Module
      * @throws Exception

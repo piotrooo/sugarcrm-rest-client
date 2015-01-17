@@ -242,4 +242,18 @@ class ModuleTest extends SessionSugarTestCase
         //then
         $this->assertTrue(isset($contact->account->leads));
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnResultsOrderedByName()
+    {
+        $this->markTestSkipped("Order doesn't working");
+        //when
+        $account = Account::where(array('name' => "LIKE 'Air%'"))->order('accounts.name desc')->fetchAll();
+
+        //then
+        Assert::thatArray($account)->hasSize(2)
+            ->onProperty('name')->containsExactly();
+    }
 }

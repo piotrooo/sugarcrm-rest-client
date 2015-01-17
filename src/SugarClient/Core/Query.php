@@ -26,6 +26,7 @@ class Query
      * @var JoinClause[]
      */
     private $joinClauses = array();
+    private $orderClause = '';
 
     public function __construct(Module $module)
     {
@@ -47,6 +48,12 @@ class Query
     public function join(JoinClause $joinClause)
     {
         $this->joinClauses[] = $joinClause;
+        return $this;
+    }
+
+    public function order($orderClause)
+    {
+        $this->orderClause = $orderClause;
         return $this;
     }
 
@@ -76,7 +83,7 @@ class Query
     private function doRequest()
     {
         Session::checkSession();
-        return Request::call(Requests::getEntryList($this->module->getModuleName(), $this->prepareWhere(), $this->fields));
+        return Request::call(Requests::getEntryList($this->module->getModuleName(), $this->prepareWhere(), $this->fields, $this->orderClause));
     }
 
     private function prepareWhere()
