@@ -2,8 +2,6 @@
 namespace SugarClient\Core;
 
 use Ouzo\Utilities\Arrays;
-use Ouzo\Utilities\Functions;
-use Ouzo\Utilities\Joiner;
 use SugarClient\Helper\Converter;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
@@ -84,8 +82,6 @@ class Query
 
     private function prepareWhere()
     {
-        return Joiner::on(' ')
-            ->mapValues(Functions::extract()->getWhere())
-            ->join($this->whereClauses);
+        return WhereExecutor::prepare($this->whereClauses)->get();
     }
 }
