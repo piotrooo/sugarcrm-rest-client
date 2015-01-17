@@ -82,6 +82,6 @@ class Query
 
     private function prepareWhere()
     {
-        return WhereExecutor::prepare($this->whereClauses)->get();
+        return WherePreparer::prepare($this->whereClauses)->get();
     }
 }

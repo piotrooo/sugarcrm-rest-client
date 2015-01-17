@@ -3,9 +3,9 @@ namespace Tests\SugarClient\Core;
 
 use PHPUnit_Framework_TestCase;
 use SugarClient\Core\WhereClause;
-use SugarClient\Core\WhereExecutor;
+use SugarClient\Core\WherePreparer;
 
-class WhereExecutorTest extends PHPUnit_Framework_TestCase
+class WherePreparerTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -19,7 +19,7 @@ class WhereExecutorTest extends PHPUnit_Framework_TestCase
         );
 
         //when
-        $where = WhereExecutor::prepare($whereClauses)->get();
+        $where = WherePreparer::prepare($whereClauses)->get();
 
         //then
         $this->assertEquals("accounts.name = 'some name' AND accounts.website = 'http://foo.bar'", $where);
