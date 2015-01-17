@@ -55,6 +55,19 @@ Camel-case is **required**, column joiner is `And`. Parameters are fetching in v
 
 ***
 
+Selecting fields
+----------------
+
+You can select fields to be returned in result. By default return all fields.
+
+```php
+$account = Account::where(array('name' => "LIKE 'Airline%'"))->select('name', 'phone_office')->fetch();
+```
+
+Now available fields are only `name` and `phone_office`.
+
+***
+
 Working with objects
 --------------------
 
