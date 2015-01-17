@@ -52,7 +52,6 @@ class Query
 
     public function fetch()
     {
-        Session::checkSession();
         $results = $this->doRequest();
         $module = Converter::toModule($results->entry_list[0], $this->module);
         foreach ($this->joinClauses as $join) {
@@ -63,7 +62,6 @@ class Query
 
     public function fetchAll()
     {
-        Session::checkSession();
         $results = $this->doRequest();
         $modules = Converter::toModules($results, $this->module);
         foreach ($this->joinClauses as $join) {
@@ -77,6 +75,7 @@ class Query
 
     private function doRequest()
     {
+        Session::checkSession();
         return Request::call(Requests::getEntryList($this->module->getModuleName(), $this->prepareWhere(), $this->fields));
     }
 
