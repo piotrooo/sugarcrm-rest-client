@@ -236,7 +236,6 @@ class ModuleTest extends SessionSugarTestCase
     {
         //when
         $contact = Contact::where(array('last_name' => 'Tibbs'))
-            ->join('account')
             ->join('account->leads')
             ->fetch();
 
