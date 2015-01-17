@@ -99,3 +99,24 @@ Returns `Contact` module with joined `Account` module. Access to related account
 ```php
 $accountName = $contact->account->name;
 ```
+
+If you want to specify fields which are returned by the `join` method you can pass array whit this fields as second parameter.
+
+```php
+$contact = Contact::where(array('last_name' => 'Tibbs'))->join('account', array('id', 'name'))->fetch();
+```
+
+This code result that in `Account` module will be avaiable only fields: `id` and 'name`.
+
+***
+
+Joining modules through other relation
+--------------------------------------
+
+Sometimes you want to get relations through other relation. You can do this using `->` sparator in a `join` method.
+
+```php
+$contact = Contact::where(array('last_name' => 'Tibbs'))
+            ->join('account->leads')
+            ->fetch();
+```
