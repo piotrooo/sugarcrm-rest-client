@@ -32,6 +32,14 @@ Also possible is use a `string` as query:
 Contact::where("contacts.last_name = 'Tibbs'")->fetch();
 ```
 
+This method can be chained with other `where` methods:
+
+```php
+Contact::where(array('last_name' => 'Tibbs'))
+            ->where(array('first_name' => 'John'))
+            ->fetch();
+```
+
 ***
 
 Dynamic searching
@@ -52,6 +60,14 @@ Account::findByShippingAddressPostalcodeAndName('60135', 'Airline Maintenance Co
 ```
 
 Camel-case is **required**, column joiner is `And`. Parameters are fetching in vararg style, order of parameters are matching to column defined in the method name.
+
+This method can be chained with `where` methods:
+
+```php
+Contact::findByLastName('Tibbs')
+            ->where(array('first_name' => 'John'))
+            ->fetch();
+```
 
 ***
 
