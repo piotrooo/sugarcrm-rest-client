@@ -5,8 +5,8 @@ REST client for SugarCRM, based on PHP.
 
 PHP version >= 5.3 is required.
 
-where
------
+Where clause
+------------
 
 Searching records using `array` or `string` method.
 
@@ -69,8 +69,8 @@ $contact->last_name;
 
 ***
 
-join
-----
+Joining modules
+---------------
 
 You can join for module related modules. This relations are save in module classes which are in namespace `\SugarClient\Module`. Relations types: 
 
