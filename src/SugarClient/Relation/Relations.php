@@ -1,6 +1,7 @@
 <?php
 namespace SugarClient\Relation;
 
+use Exception;
 use Ouzo\Utilities\Arrays;
 
 /**
@@ -39,7 +40,11 @@ class Relations
 
     public function getRelation($name)
     {
-        return Arrays::getValue($this->relations, $name);
+        $value = Arrays::getValue($this->relations, $name);
+        if (is_null($value)) {
+            throw new Exception("Relation not found");
+        }
+        return $value;
     }
 
     public function hasRelation($name)

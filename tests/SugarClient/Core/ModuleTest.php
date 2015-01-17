@@ -228,4 +228,19 @@ class ModuleTest extends SessionSugarTestCase
         $this->assertCount(4, $contacts);
         $this->assertCount(1, $leads);
     }
+
+    /**
+     * @test
+     */
+    public function shouldJoinRelationsThroughOtherRelation()
+    {
+        //when
+        $contact = Contact::where(array('last_name' => 'Tibbs'))
+            ->join('account')
+            ->join('account->leads')
+            ->fetch();
+
+        //then
+        $this->assertTrue(isset($contact->account->leads));
+    }
 }

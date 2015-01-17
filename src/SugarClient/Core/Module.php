@@ -41,9 +41,16 @@ abstract class Module
     public function fetchRelation($name, array $fields = array())
     {
         $relation = $this->relations->getRelation($name);
-        $relationFetcher = RelationFetcher::getRelation($this, $relation);
-        $result = $relationFetcher->fetchRelation($fields);
-        $this->attributes[$name] = $result;
+        if (!$this->isRelationIsStored($name)) {
+            $relationFetcher = RelationFetcher::getRelation($this, $relation);
+            $result = $relationFetcher->fetchRelation($fields);
+            $this->attributes[$name] = $result;
+        }
+    }
+
+    private function isRelationIsStored($name)
+    {
+        return isset($this->attributes[$name]);
     }
 
     public function __isset($name)

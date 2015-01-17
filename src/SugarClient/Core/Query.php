@@ -55,7 +55,7 @@ class Query
         $results = $this->doRequest();
         $module = Converter::toModule($results->entry_list[0], $this->module);
         foreach ($this->joinClauses as $join) {
-            $module->fetchRelation($join->getRelationName(), $join->getRelationFields());
+            $this->addJoin($module, $join);
         }
         return $module;
     }
@@ -82,5 +82,14 @@ class Query
     private function prepareWhere()
     {
         return WherePreparer::prepare($this->whereClauses)->get();
+    }
+
+    private function addJoin(Module $module, JoinClause $join)
+    {
+        $relationNames = explode('->', $join->getRelationName());
+        foreach ($relationNames as $name) {
+            $module->fetchRelation($name, $join->getRelationFields());
+            $module = $module->$name;
+        }
     }
 }
