@@ -2,10 +2,6 @@
 namespace SugarClient\Core;
 
 use Exception;
-use Ouzo\Utilities\Arrays;
-use SugarClient\Helper\Converter;
-use SugarClient\Http\Request;
-use SugarClient\Http\Requests;
 
 /**
  * Class ModuleQueryBuilder
@@ -18,34 +14,32 @@ class ModuleQueryBuilder
      * @var Module
      */
     private $module;
-    private $fields = array();
-    private $where = '';
     /**
-     * @var JoinClause[]
+     * @var Query
      */
-    private $joined = array();
+    private $query;
 
     public function __construct(Module $module)
     {
         $this->module = $module;
+        $this->query = new Query($module);
     }
 
     public function select()
     {
-        $this->fields = func_get_args();
+        $this->query->select(func_get_args());
         return $this;
     }
 
     public function where($params)
     {
-        $whereBuilder = new WhereClause($this->module, $params);
-        $this->where = $whereBuilder->getWhere();
+        $this->query->where(new WhereClause($this->module->getModuleDbName(), $params));
         return $this;
     }
 
     public function join($relationName, array $relationFields = array())
     {
-        $this->joined[] = new JoinClause($relationName, $relationFields);
+        $this->query->join(new JoinClause($relationName, $relationFields));
         return $this;
     }
 
@@ -55,13 +49,7 @@ class ModuleQueryBuilder
      */
     public function fetch()
     {
-        Session::checkSession();
-        $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
-        $module = Converter::toModule($results->entry_list[0], $this->module);
-        foreach ($this->joined as $join) {
-            $module->fetchRelation($join->getRelationName(), $join->getRelationFields());
-        }
-        return $module;
+        return $this->query->fetch();
     }
 
     /**
@@ -70,15 +58,6 @@ class ModuleQueryBuilder
      */
     public function fetchAll()
     {
-        Session::checkSession();
-        $results = Request::call(Requests::getEntryList($this->module->getModuleName(), $this->where, $this->fields));
-        $modules = Converter::toModules($results, $this->module);
-        foreach ($this->joined as $join) {
-            $modules = Arrays::map($modules, function (Module $module) use ($join) {
-                $module->fetchRelation($join->getRelationName(), $join->getRelationFields());
-                return $module;
-            });
-        }
-        return $modules;
+        return $this->query->fetchAll();
     }
 }

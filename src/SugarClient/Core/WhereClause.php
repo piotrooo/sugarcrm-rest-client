@@ -10,9 +10,12 @@ class WhereClause
 {
     private static $reservedKeywordsRegExp = '/(^| )(LIKE|IN)/i';
 
-    public function __construct(Module $module, $params)
+    private $moduleDbName;
+    private $where;
+
+    public function __construct($moduleDbName, $params)
     {
-        $this->module = $module;
+        $this->moduleDbName = $moduleDbName;
         $this->where = $this->prepareWhere($params);
     }
 
@@ -32,7 +35,7 @@ class WhereClause
 
     private function buildWhereForSingleValue($column, $value)
     {
-        $where = $this->getAlias() . '.' . $column;
+        $where = $this->getModuleDbName() . '.' . $column;
         if ($this->isValueHasReservedKeywords($value)) {
             $where .= ' ' . $value . ' AND ';
         } else {
@@ -51,8 +54,8 @@ class WhereClause
         return $this->where;
     }
 
-    private function getAlias()
+    private function getModuleDbName()
     {
-        return $this->module->getModuleDbName();
+        return $this->moduleDbName;
     }
 }

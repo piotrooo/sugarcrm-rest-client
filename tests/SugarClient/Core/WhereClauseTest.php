@@ -7,12 +7,13 @@ use SugarClient\Module\Account;
 
 class WhereClauseTest extends PHPUnit_Framework_TestCase
 {
-    private $module;
+    private $moduleDbName;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->module = new Account();
+        $account = new Account();
+        $this->moduleDbName = $account->getModuleDbName();
     }
 
     /**
@@ -24,7 +25,7 @@ class WhereClauseTest extends PHPUnit_Framework_TestCase
         $params = array('name' => 'some name');
 
         //when
-        $whereBuilder = new WhereClause($this->module, $params);
+        $whereBuilder = new WhereClause($this->moduleDbName, $params);
 
         //then
         $this->assertEquals("accounts.name = 'some name'", $whereBuilder->getWhere());
@@ -39,7 +40,7 @@ class WhereClauseTest extends PHPUnit_Framework_TestCase
         $params = array('name' => 'some name', 'phone_office' => '123456');
 
         //when
-        $whereBuilder = new WhereClause($this->module, $params);
+        $whereBuilder = new WhereClause($this->moduleDbName, $params);
 
         //then
         $this->assertEquals("accounts.name = 'some name' AND accounts.phone_office = '123456'", $whereBuilder->getWhere());
@@ -54,7 +55,7 @@ class WhereClauseTest extends PHPUnit_Framework_TestCase
         $params = array('name' => "LIKE 'name%'");
 
         //when
-        $whereBuilder = new WhereClause($this->module, $params);
+        $whereBuilder = new WhereClause($this->moduleDbName, $params);
 
         //then
         $this->assertEquals("accounts.name LIKE 'name%'", $whereBuilder->getWhere());
@@ -69,7 +70,7 @@ class WhereClauseTest extends PHPUnit_Framework_TestCase
         $params = array('id' => "in ('3432fdsf', '3423-dfs', '786sdv')");
 
         //when
-        $whereBuilder = new WhereClause($this->module, $params);
+        $whereBuilder = new WhereClause($this->moduleDbName, $params);
 
         //then
         $this->assertEquals("accounts.id in ('3432fdsf', '3423-dfs', '786sdv')", $whereBuilder->getWhere());
@@ -84,7 +85,7 @@ class WhereClauseTest extends PHPUnit_Framework_TestCase
         $params = "accounts.name = 'some name' OR phone_office = '333222111'";
 
         //when
-        $whereBuilder = new WhereClause($this->module, $params);
+        $whereBuilder = new WhereClause($this->moduleDbName, $params);
 
         //then
         $this->assertEquals($params, $whereBuilder->getWhere());
