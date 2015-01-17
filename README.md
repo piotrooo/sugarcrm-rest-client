@@ -84,5 +84,5 @@ $contact = Contact::where(array('last_name' => 'Tibbs'))->join('account')->fetch
 Returns `Contact` module with joined `Account` module. Access to related account is:
 
 ```php
-$account = $contact->account;
+$accountName = $contact->account->name;
 ```
