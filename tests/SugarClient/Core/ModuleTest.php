@@ -256,4 +256,16 @@ class ModuleTest extends SessionSugarTestCase
         Assert::thatArray($account)->hasSize(2)
             ->onProperty('name')->containsExactly();
     }
+
+    /**
+     * @test
+     */
+    public function shouldSearchWhenPassStringInWhere()
+    {
+        //when
+        $contact = Contact::where("contacts.last_name = 'Tibbs'")->fetch();
+
+        //then
+        $this->assertEquals('4d246443-a503-c984-11f4-5404b00baa09', $contact->id);
+    }
 }
