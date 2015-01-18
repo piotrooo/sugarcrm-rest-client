@@ -88,7 +88,7 @@ abstract class Module
      * @param $params
      * @return ModuleQueryBuilder
      */
-    public static function where($params)
+    public static function where($params = array())
     {
         return static::queryBuilder()->where($params);
     }
@@ -101,6 +101,11 @@ abstract class Module
     public static function join($relationName, array $relationFields = array())
     {
         return static::queryBuilder()->join($relationName, $relationFields);
+    }
+
+    public static function count($where = array())
+    {
+        return static::queryBuilder()->where($where)->count();
     }
 
     public static function getModuleName()

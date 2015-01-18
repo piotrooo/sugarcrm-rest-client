@@ -59,7 +59,7 @@ class Query
 
     public function fetch()
     {
-        $results = $this->doRequest();
+        $results = $this->doFetchRequest();
         $module = Converter::toModule($results->entry_list[0], $this->module);
         foreach ($this->joinClauses as $join) {
             $this->addJoin($module, $join);
@@ -69,7 +69,7 @@ class Query
 
     public function fetchAll()
     {
-        $results = $this->doRequest();
+        $results = $this->doFetchRequest();
         $modules = Converter::toModules($results, $this->module);
         foreach ($this->joinClauses as $join) {
             $modules = Arrays::map($modules, function (Module $module) use ($join) {
@@ -80,7 +80,7 @@ class Query
         return $modules;
     }
 
-    private function doRequest()
+    private function doFetchRequest()
     {
         Session::checkSession();
         return Request::call(Requests::getEntryList($this->module->getModuleName(), $this->prepareWhere(), $this->fields, $this->orderClause));
@@ -98,5 +98,11 @@ class Query
             $module->fetchRelation($name, $join->getRelationFields());
             $module = $module->$name;
         }
+    }
+
+    public function count()
+    {
+        $call = Request::call(Requests::getEntriesCount($this->module->getModuleName(), $this->prepareWhere()));
+        return $call->result_count;
     }
 }

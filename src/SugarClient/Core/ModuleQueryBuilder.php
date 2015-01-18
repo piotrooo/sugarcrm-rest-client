@@ -31,7 +31,7 @@ class ModuleQueryBuilder
         return $this;
     }
 
-    public function where($params)
+    public function where($params = array())
     {
         $this->query->where(new WhereClause($this->module->getModuleDbName(), $params));
         return $this;
@@ -47,6 +47,11 @@ class ModuleQueryBuilder
     {
         $this->query->order($orderClause);
         return $this;
+    }
+
+    public function count()
+    {
+        return $this->query->count();
     }
 
     /**

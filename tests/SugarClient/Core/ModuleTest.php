@@ -268,4 +268,16 @@ class ModuleTest extends SessionSugarTestCase
         //then
         $this->assertEquals('4d246443-a503-c984-11f4-5404b00baa09', $contact->id);
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnCountOfRecords()
+    {
+        //when
+        $count = Account::count(array('name' => "LIKE 'Air%'"));
+
+        //then
+        $this->assertEquals(2, $count);
+    }
 }
