@@ -292,4 +292,20 @@ class ModuleTest extends SessionSugarTestCase
         //then
         $this->assertEquals('Tibbs', $contact->last_name);
     }
+
+    /**
+     * @test
+     */
+    public function shouldInsertAccount()
+    {
+        //given
+        $account = new Account();
+        $account->name = 'New Company';
+
+        //when
+        $id = $account->insert();
+
+        //then
+        $this->assertNotEmpty($id);
+    }
 }

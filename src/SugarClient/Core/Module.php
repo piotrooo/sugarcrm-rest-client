@@ -38,6 +38,11 @@ abstract class Module
         return null;
     }
 
+    public function __set($name, $value)
+    {
+        $this->attributes[$name] = $value;
+    }
+
     public function fetchRelation($name, array $fields = array())
     {
         $relation = $this->relations->getRelation($name);
@@ -126,5 +131,10 @@ abstract class Module
     {
         $class = get_called_class();
         return new $class($attributes);
+    }
+
+    public function insert()
+    {
+        return Query::insert($this->attributes)->into($this->getModuleName());
     }
 }

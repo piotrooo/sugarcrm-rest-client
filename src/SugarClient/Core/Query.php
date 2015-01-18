@@ -105,4 +105,9 @@ class Query
         $call = Request::call(Requests::getEntriesCount($this->module->getModuleName(), $this->prepareWhere()));
         return $call->result_count;
     }
+
+    public static function insert($attributes)
+    {
+        return new QueryInsert($attributes);
+    }
 }
