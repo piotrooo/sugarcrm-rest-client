@@ -25,9 +25,10 @@ class ModuleQueryBuilder
         $this->query = new Query($module);
     }
 
-    public function select()
+    public function select($arrayFields)
     {
-        $this->query->select(func_get_args());
+        $fields = is_array($arrayFields) ? $arrayFields : func_get_args();
+        $this->query->select($fields);
         return $this;
     }
 

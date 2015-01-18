@@ -108,6 +108,14 @@ abstract class Module
         return static::queryBuilder()->where($where)->count();
     }
 
+    public static function findById($id, array $fields = array())
+    {
+        return static::queryBuilder()
+            ->where(array('id' => $id))
+            ->select($fields)
+            ->fetch();
+    }
+
     public static function getModuleName()
     {
         $reflectionClass = new ReflectionClass(get_called_class());

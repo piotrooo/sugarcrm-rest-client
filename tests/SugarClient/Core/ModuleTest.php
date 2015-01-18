@@ -280,4 +280,16 @@ class ModuleTest extends SessionSugarTestCase
         //then
         $this->assertEquals(2, $count);
     }
+
+    /**
+     * @test
+     */
+    public function shouldSearchById()
+    {
+        //when
+        $contact = Contact::findById('4d246443-a503-c984-11f4-5404b00baa09');
+
+        //then
+        $this->assertEquals('Tibbs', $contact->last_name);
+    }
 }

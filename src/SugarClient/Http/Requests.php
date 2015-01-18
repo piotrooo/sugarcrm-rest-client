@@ -3,6 +3,7 @@ namespace SugarClient\Http;
 
 use SugarClient\Http\ApiAction\GetAvailableModules;
 use SugarClient\Http\ApiAction\GetEntriesCount;
+use SugarClient\Http\ApiAction\GetEntry;
 use SugarClient\Http\ApiAction\GetEntryList;
 use SugarClient\Http\ApiAction\GetModuleFields;
 use SugarClient\Http\ApiAction\GetRelationships;
@@ -43,5 +44,10 @@ class Requests
     public static function getEntriesCount($moduleName, $where)
     {
         return new GetEntriesCount($moduleName, $where);
+    }
+
+    public static function getEntry($moduleName, $id, array $fields = array())
+    {
+        return new GetEntry($moduleName, $id, $fields);
     }
 }
