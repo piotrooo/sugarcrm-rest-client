@@ -7,6 +7,7 @@ use SugarClient\Http\ApiAction\GetEntry;
 use SugarClient\Http\ApiAction\GetEntryList;
 use SugarClient\Http\ApiAction\GetModuleFields;
 use SugarClient\Http\ApiAction\GetRelationships;
+use SugarClient\Http\ApiAction\GetUserId;
 use SugarClient\Http\ApiAction\Login;
 
 /**
@@ -49,5 +50,10 @@ class Requests
     public static function getEntry($moduleName, $id, array $fields = array())
     {
         return new GetEntry($moduleName, $id, $fields);
+    }
+
+    public static function getUserId()
+    {
+        return new GetUserId();
     }
 }

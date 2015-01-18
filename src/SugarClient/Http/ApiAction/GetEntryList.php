@@ -36,7 +36,7 @@ class GetEntryList implements RequestAction
             'link_name_to_fields_array' => '',
             'max_result' => 100,
             'deleted' => 0,
-            'favorites' => false,
+            'favorites' => false
         );
         return Json::encode($parameters);
     }
