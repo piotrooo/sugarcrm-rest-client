@@ -84,6 +84,19 @@ Now available fields are only `name` and `phone_office`.
 
 ***
 
+Counting records
+----------------
+
+You can return count of records using `count` method. 
+
+```php
+$count = Account::count(array('name' => "LIKE 'Air%'"));
+```
+
+If you not pass where clause to the `count` method then will be returned the number of all records in the module.
+
+***
+
 Working with objects
 --------------------
 
@@ -122,7 +135,7 @@ If you want to specify fields which are returned by the `join` method you can pa
 $contact = Contact::where(array('last_name' => 'Tibbs'))->join('account', array('id', 'name'))->fetch();
 ```
 
-This code result that in `Account` module will be avaiable only fields: `id` and 'name`.
+This code result that in `Account` module will be avaiable only fields: `id` and `name`.
 
 ***
 
