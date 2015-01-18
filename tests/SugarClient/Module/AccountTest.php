@@ -21,4 +21,18 @@ class AccountTest extends SessionSugarTestCase
         Assert::thatArray($account->documents)->hasSize(2)
             ->onProperty('document_name')->containsOnly("Zrzut ekranu z 2015-01-10 11:14:25.png", "dane1");
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnAccountWithBugs()
+    {
+        //when
+        $account = Account::where(array('name' => "LIKE 'Air Sa%'"))->fetch();
+
+        //then
+        Assert::thatArray($account->bugs)->hasSize(2)
+            ->onProperty('name')->containsOnly("Syntax error appears when running old reports", "Broken image appears in home page");
+
+    }
 }
