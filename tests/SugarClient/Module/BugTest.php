@@ -19,4 +19,19 @@ class BugTest extends SessionSugarTestCase
         Assert::thatArray($bug->accounts)->hasSize(2)
             ->onProperty('name')->containsOnly("Airline Maintenance Co", "Air Safety Inc");
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnContactsForBug()
+    {
+        //given
+
+        //when
+        $bug = Bug::findById('b0d20087-ef60-36cf-8d79-5404b012b723');
+
+        //then
+        Assert::thatArray($bug->contacts)->hasSize(1)
+            ->onProperty('name')->containsOnly("Dante Tibbs");
+    }
 }

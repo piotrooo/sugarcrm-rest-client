@@ -16,7 +16,8 @@ class Document extends Module
         parent::__construct(array(
             'attributes' => $attributes,
             'hasMany' => array(
-                'accounts' => HasMany::module('Account')
+                'accounts' => HasMany::module('Account'),
+                'bugs' => HasMany::module('Bug')
             )
         ));
     }

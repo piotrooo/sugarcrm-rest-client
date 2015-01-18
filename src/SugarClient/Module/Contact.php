@@ -3,6 +3,7 @@ namespace SugarClient\Module;
 
 use SugarClient\Core\Module;
 use SugarClient\Relation\Type\BelongsTo;
+use SugarClient\Relation\Type\HasMany;
 
 /**
  * Class Contact
@@ -17,6 +18,9 @@ class Contact extends Module
             'attributes' => $attributes,
             'belongsTo' => array(
                 'account' => BelongsTo::module('Account')
+            ),
+            'hasMany' => array(
+                'bugs' => HasMany::module('Bug')
             )
         ));
     }

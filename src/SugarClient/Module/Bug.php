@@ -16,7 +16,9 @@ class Bug extends Module
         parent::__construct(array(
             'attributes' => $attributes,
             'hasMany' => array(
-                'accounts' => HasMany::module('Account')
+                'accounts' => HasMany::module('Account'),
+                'contacts' => HasMany::module('Contact'),
+                'documents' => HasMany::module('Document')
             )
         ));
     }
