@@ -2,7 +2,7 @@
 namespace Tests\SugarClient\Core;
 
 use SugarClient\Core\Session;
-use Tests\MockSugarServer\SugarServerTestCase;
+use Tests\MockSugarServer\TestCase\SugarServerTestCase;
 
 class SessionTest extends SugarServerTestCase
 {

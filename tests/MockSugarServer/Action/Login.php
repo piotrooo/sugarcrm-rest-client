@@ -6,18 +6,6 @@ use stdClass;
 
 class Login extends BaseAction
 {
-    private $post;
-
-    public function __construct($post)
-    {
-        $this->post = $post;
-        $this->addDefaultElement(array(
-            'id' => '2qlkr4sa14p9s68jh4s92beg17',
-            'user_name' => 'admin',
-            'password' => md5('123qwe')
-        ));
-    }
-
     public function process()
     {
         $post = $this->post;
@@ -36,7 +24,7 @@ class Login extends BaseAction
         } else {
             $user = Arrays::first($filterLogin);
             $response = new stdClass();
-            $response->id = $user;
+            $response->id = $user->id;
             $this->response = $response;
         }
         return $this;

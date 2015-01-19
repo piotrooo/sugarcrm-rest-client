@@ -1,8 +1,9 @@
 <?php
-namespace Tests\MockSugarServer;
+namespace Tests\MockSugarServer\TestCase;
 
 use PHPUnit_Framework_TestCase;
 use SugarClient\Http\Request;
+use Tests\MockSugarServer\Dispatcher;
 
 class SugarServerTestCase extends PHPUnit_Framework_TestCase
 {
