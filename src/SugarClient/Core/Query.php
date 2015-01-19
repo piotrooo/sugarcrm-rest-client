@@ -2,6 +2,7 @@
 namespace SugarClient\Core;
 
 use Ouzo\Utilities\Arrays;
+use Ouzo\Utilities\Functions;
 use SugarClient\Helper\Converter;
 use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
@@ -60,11 +61,15 @@ class Query
     public function fetch()
     {
         $results = $this->doFetchRequest();
-        $module = Converter::toModule($results->entry_list[0], $this->module);
-        foreach ($this->joinClauses as $join) {
-            $this->addJoin($module, $join);
+        $result = Arrays::firstOrNull($results->entry_list);
+        if ($result) {
+            $module = Converter::toModule($result, $this->module);
+            foreach ($this->joinClauses as $join) {
+                $this->addJoin($module, $join);
+            }
+            return $module;
         }
-        return $module;
+        return null;
     }
 
     public function fetchAll()
@@ -109,5 +114,13 @@ class Query
     public static function insert($attributes)
     {
         return new QueryInsert($attributes);
+    }
+
+    public function delete()
+    {
+        $attributes = Arrays::map($this->whereClauses, Functions::extract()->getParams());
+        $queryInsert = new QueryInsert(Arrays::firstOrNull($attributes));
+        $id = $queryInsert->into($this->module->getModuleName());
+        return !is_null($id);
     }
 }

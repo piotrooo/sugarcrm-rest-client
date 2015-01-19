@@ -72,4 +72,9 @@ class ModuleQueryBuilder
     {
         return $this->query->fetchAll();
     }
+
+    public function delete()
+    {
+        return $this->query->delete();
+    }
 }

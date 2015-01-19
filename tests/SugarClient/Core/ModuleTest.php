@@ -307,5 +307,24 @@ class ModuleTest extends SessionSugarTestCase
 
         //then
         $this->assertNotEmpty($id);
+        $account->delete();
+    }
+
+    /**
+     * @test
+     */
+    public function shouldDeleteRecord()
+    {
+        //given
+        $account = new Account();
+        $account->name = 'New Company';
+        $id = $account->insert();
+
+        //when
+        Account::findById($id)->delete();
+
+        //then
+        $account = Account::findById($id);
+        $this->assertNull($account);
     }
 }

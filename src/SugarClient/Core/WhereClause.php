@@ -11,11 +11,13 @@ class WhereClause
     private static $reservedKeywordsRegExp = '/(^| )(LIKE|IN)/i';
 
     private $moduleDbName;
+    private $params;
     private $where;
 
     public function __construct($moduleDbName, $params)
     {
         $this->moduleDbName = $moduleDbName;
+        $this->params = $params;
         $this->where = $this->prepareWhere($params);
     }
 
@@ -47,6 +49,11 @@ class WhereClause
     private function isValueHasReservedKeywords($string)
     {
         return preg_match(self::$reservedKeywordsRegExp, $string);
+    }
+
+    public function getParams()
+    {
+        return $this->params;
     }
 
     public function getWhere()

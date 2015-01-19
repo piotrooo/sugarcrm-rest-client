@@ -135,6 +135,15 @@ abstract class Module
 
     public function insert()
     {
-        return Query::insert($this->attributes)->into($this->getModuleName());
+        $id = Query::insert($this->attributes)->into($this->getModuleName());
+        $this->id = $id;
+        return $id;
+    }
+
+    public function delete()
+    {
+        return (bool)static::queryBuilder()
+            ->where(array('id' => $this->id, 'deleted' => 1))
+            ->delete();
     }
 }
