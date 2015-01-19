@@ -1,7 +1,6 @@
 <?php
 namespace SugarClient\Http;
 
-use SugarClient\Core\Session;
 use SugarClient\Http\ApiAction\RequestAction;
 
 /**
@@ -21,8 +20,7 @@ class Request
             "response_type" => "JSON",
             "rest_data" => $requestAction->getRestData()
         );
-        $requestHandler = self::$requestHandler;
-        return self::$requestHandler ? $requestHandler->handle($post) : self::doRequest($post);
+        return self::doRequest($post);
     }
 
     public static function callMethod($method, $parameters)
@@ -38,25 +36,8 @@ class Request
 
     private static function doRequest($post)
     {
-        ob_start();
-        $request = curl_init();
-
-        curl_setopt($request, CURLOPT_URL, Session::$url);
-        curl_setopt($request, CURLOPT_POST, 1);
-        curl_setopt($request, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-        curl_setopt($request, CURLOPT_HEADER, 1);
-        curl_setopt($request, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($request, CURLOPT_FOLLOWLOCATION, 0);
-
-        curl_setopt($request, CURLOPT_POSTFIELDS, $post);
-        $result = curl_exec($request);
-        curl_close($request);
-
-        $result = explode("\r\n\r\n", $result, 2);
-        $response = json_decode($result[1]);
-        ob_end_flush();
-
-        return $response;
+        return self::$requestHandler->handle($post);
     }
 }
+
+Request::$requestHandler = new RequestHandler();
