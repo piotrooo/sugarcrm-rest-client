@@ -1,10 +1,10 @@
 <?php
 namespace Tests\SugarClient\Core;
 
-use PHPUnit_Framework_TestCase;
 use SugarClient\Core\Session;
+use Tests\MockSugarServer\SugarServerTestCase;
 
-class SessionTest extends PHPUnit_Framework_TestCase
+class SessionTest extends SugarServerTestCase
 {
     /**
      * @test

@@ -11,6 +11,8 @@ use SugarClient\Http\ApiAction\RequestAction;
  */
 class Request
 {
+    public static $requestHandler = null;
+
     public static function call(RequestAction $requestAction)
     {
         $post = array(
@@ -19,7 +21,8 @@ class Request
             "response_type" => "JSON",
             "rest_data" => $requestAction->getRestData()
         );
-        return self::doRequest($post);
+        $requestHandler = self::$requestHandler;
+        return self::$requestHandler ? $requestHandler->handle($post) : self::doRequest($post);
     }
 
     public static function callMethod($method, $parameters)
