@@ -5,7 +5,7 @@ use BadMethodCallException;
 use Ouzo\Tests\Assert;
 use SugarClient\Module\Account;
 use SugarClient\Module\Contact;
-use Tests\MockSugarServer\TestCase\SessionSugarTestCase;
+use Tests\TestCase\SessionSugarTestCase;
 
 class ModuleTest extends SessionSugarTestCase
 {
