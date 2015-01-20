@@ -116,6 +116,11 @@ class Query
         return new QueryInsert($attributes);
     }
 
+    public static function update($attributes)
+    {
+        return new QueryUpdate($attributes);
+    }
+
     public function delete()
     {
         $attributes = Arrays::map($this->whereClauses, Functions::extract()->getParams());

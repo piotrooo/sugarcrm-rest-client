@@ -5,11 +5,11 @@ use SugarClient\Http\Request;
 use SugarClient\Http\Requests;
 
 /**
- * Class QueryInsert
+ * Class QueryUpdate
  * @package SugarClient\Core
  * @author Piotr Olaszewski <piotroo89 [%] gmail dot com>
  */
-class QueryInsert
+class QueryUpdate
 {
     private $attributes;
 
@@ -18,14 +18,14 @@ class QueryInsert
         $this->attributes = AttributesPreparer::prepare($attributes);
     }
 
-    public function getAttributes()
+    public function whereId($id)
     {
-        return $this->attributes;
+        $this->attributes[] = array('name' => 'id', 'value' => $id);
+        return $this;
     }
 
     public function into($moduleName)
     {
-        $call = Request::call(Requests::setEntry($moduleName, $this->attributes));
-        return $call->id;
+        Request::call(Requests::setEntry($moduleName, $this->attributes));
     }
 }

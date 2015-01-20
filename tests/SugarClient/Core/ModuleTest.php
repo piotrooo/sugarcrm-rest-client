@@ -313,6 +313,26 @@ class ModuleTest extends SessionSugarTestCase
     /**
      * @test
      */
+    public function shouldUpdateAccount()
+    {
+        //given
+        $account = new Account();
+        $account->name = 'New Company';
+        $id = $account->insert();
+        $search = Account::findById($id);
+        $search->name = 'Some new name';
+
+        //when
+        $search->update();
+
+        //then
+        $result = Account::findById($id);
+        $this->assertEquals('Some new name', $result->name);
+    }
+
+    /**
+     * @test
+     */
     public function shouldDeleteRecord()
     {
         //given

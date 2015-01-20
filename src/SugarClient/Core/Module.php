@@ -140,6 +140,11 @@ abstract class Module
         return $id;
     }
 
+    public function update()
+    {
+        Query::update($this->attributes)->whereId($this->id)->into($this->getModuleName());
+    }
+
     public function delete()
     {
         return (bool)static::queryBuilder()
