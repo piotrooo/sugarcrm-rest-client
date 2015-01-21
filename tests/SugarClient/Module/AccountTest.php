@@ -33,6 +33,5 @@ class AccountTest extends SessionSugarTestCase
         //then
         Assert::thatArray($account->bugs)->hasSize(2)
             ->onProperty('name')->containsOnly("Syntax error appears when running old reports", "Broken image appears in home page");
-
     }
 }

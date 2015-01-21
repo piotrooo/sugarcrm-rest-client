@@ -1,5 +1,6 @@
 <?php
 namespace SugarClient\Http\ApiAction;
+
 use Ouzo\Utilities\Json;
 use SugarClient\Core\Session;
 

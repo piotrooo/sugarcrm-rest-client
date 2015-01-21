@@ -22,5 +22,4 @@ class Bug extends Module
             )
         ));
     }
-
 }
