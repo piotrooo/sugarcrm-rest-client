@@ -15,8 +15,7 @@ Session::connect('http://link/to/your/sugarcrm/service/v4_1/rest.php', 'login', 
 
 Where clause
 ------------
-
-Searching records using `array` or `string` method.
+To search records use `where` method with `array` or `string` parameter.
 
 ```php
 Contact::where(array('last_name' => 'Tibbs'))->fetch();
@@ -40,6 +39,8 @@ Also possible is use a `string` as query:
 Contact::where("contacts.last_name = 'Tibbs'")->fetch();
 ```
 
+*Remember to add a correct table alias.*
+
 This method can be chained with other `where` methods:
 
 ```php
@@ -52,8 +53,7 @@ Contact::where(array('last_name' => 'Tibbs'))
 
 Dynamic searching
 -----------------
-
-SugarClient allows to create dynamic method with column name in name:
+SugarClient allows to create a dynamic method with column name in the method definition:
 
 ```php
 Account::findByName('Airline Maintenance Co')->fetch();
@@ -61,7 +61,7 @@ Account::findByName('Airline Maintenance Co')->fetch();
 
 Return account name where `name` is equal to passed argument.
 
-You can dynamically search using `find` prefix in static method and defining multiple columns e.g.:
+You can dynamically search using `findBy` prefix in static method and defining multiple columns e.g.:
 
 ```php
 Account::findByShippingAddressPostalcodeAndName('60135', 'Airline Maintenance Co')->fetch();
@@ -81,8 +81,7 @@ Contact::findByLastName('Tibbs')
 
 Selecting fields
 ----------------
-
-You can select fields to be returned in result. By default return all fields.
+You can select fields to be returned in the result. By default return all fields.
 
 ```php
 $account = Account::where(array('name' => "LIKE 'Airline%'"))->select('name', 'phone_office')->fetch();
@@ -94,8 +93,7 @@ Now available fields are only `name` and `phone_office`.
 
 Counting records
 ----------------
-
-You can return count of records using `count` method. 
+You can return count of the records using `count` method. 
 
 ```php
 $count = Account::count(array('name' => "LIKE 'Air%'"));
@@ -107,15 +105,59 @@ If you not pass where clause to the `count` method then will be returned the num
 
 Working with objects
 --------------------
-
 When you fetch object you can access to their properties using dynamic fields:
 
 ```php
-$contacpt = Contact::where(array('last_name' => 'Tibbs'))->fetch();
+$contact = Contact::where(array('last_name' => 'Tibbs'))->fetch();
 
 $contact->first_name;
 $contact->last_name;
 ```
+
+To create new record use `insert` method:
+
+```php
+$contact = new Contact();
+$contact->first_name = 'John';
+$contact->last_name = 'Doe';
+$contact->insert();
+```
+
+`insert` method returns id new created record.
+
+To update record use `update` method:
+
+```php
+$contact = Contact::where(array('last_name' => 'Doe'))->fetch();
+$contact->first_name = 'Brad';
+$contact->last_name = 'Smith';
+$contact->update();
+```
+
+To delete record use `delete` method:
+
+```php
+Contact::where(array('last_name' => 'Doe'))->delete();
+```
+
+Returns `true` if correctly deleted or `false` on failure.
+
+To set relation between objects use `relatedWith` method.
+
+```php
+$account = new Account();
+$account->name = 'New Company';
+$account->insert();
+
+$contact = new Contact();
+$contact->first_name = 'John';
+$contact->last_name = 'Doe';
+$contact->insert();
+
+$account->relatedWith($contact);
+```
+
+You can reload module attributes using method `reload`.
 
 ***
 
