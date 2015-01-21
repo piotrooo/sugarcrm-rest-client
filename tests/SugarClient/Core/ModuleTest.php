@@ -347,4 +347,26 @@ class ModuleTest extends SessionSugarTestCase
         $account = Account::findById($id);
         $this->assertNull($account);
     }
+
+    /**
+     * @test
+     */
+    public function shouldSetRelationship()
+    {
+        //given
+        $account = new Account();
+        $account->name = 'New Company';
+        $account->insert();
+        $contact = new Contact();
+        $contact->first_name = 'John';
+        $contact->last_name = 'Doe';
+        $contact->insert();
+
+        //when
+        $account->relatedWith($contact);
+
+        //then
+        $search = Account::findById($account->id);
+        Assert::thatArray($search->contacts)->hasSize(1);
+    }
 }

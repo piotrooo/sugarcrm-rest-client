@@ -6,6 +6,8 @@ use Ouzo\Utilities\Arrays;
 use Ouzo\Utilities\Inflector;
 use ReflectionClass;
 use SugarClient\Helper\DynamicFinder;
+use SugarClient\Http\Request;
+use SugarClient\Http\Requests;
 use SugarClient\Relation\RelationFetcher;
 use SugarClient\Relation\Relations;
 
@@ -150,5 +152,10 @@ abstract class Module
         return (bool)static::queryBuilder()
             ->where(array('id' => $this->id, 'deleted' => 1))
             ->delete();
+    }
+
+    public function relatedWith(Module $module)
+    {
+        Request::call(Requests::setRelationship($this->getModuleName(), $this->id, $module->getModuleDbName(), $module->id));
     }
 }

@@ -10,6 +10,7 @@ use SugarClient\Http\ApiAction\GetRelationships;
 use SugarClient\Http\ApiAction\GetUserId;
 use SugarClient\Http\ApiAction\Login;
 use SugarClient\Http\ApiAction\SetEntry;
+use SugarClient\Http\ApiAction\SetRelationship;
 
 /**
  * Class Requests
@@ -61,5 +62,10 @@ class Requests
     public static function setEntry($moduleName, array $fields = array())
     {
         return new SetEntry($moduleName, $fields);
+    }
+
+    public static function setRelationship($moduleName, $moduleId, $relationModuleDbName, $relationModuleId)
+    {
+        return new SetRelationship($moduleName, $moduleId, $relationModuleDbName, $relationModuleId);
     }
 }
