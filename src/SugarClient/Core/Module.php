@@ -163,4 +163,10 @@ abstract class Module
         }
         return $result->created == 1;
     }
+
+    public function reload()
+    {
+        $this->attributes = $this->findById($this->id)->attributes;
+        return $this;
+    }
 }

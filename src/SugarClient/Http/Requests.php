@@ -2,6 +2,7 @@
 namespace SugarClient\Http;
 
 use SugarClient\Http\ApiAction\GetAvailableModules;
+use SugarClient\Http\ApiAction\GetDocumentRevision;
 use SugarClient\Http\ApiAction\GetEntriesCount;
 use SugarClient\Http\ApiAction\GetEntry;
 use SugarClient\Http\ApiAction\GetEntryList;
@@ -9,6 +10,7 @@ use SugarClient\Http\ApiAction\GetModuleFields;
 use SugarClient\Http\ApiAction\GetRelationships;
 use SugarClient\Http\ApiAction\GetUserId;
 use SugarClient\Http\ApiAction\Login;
+use SugarClient\Http\ApiAction\SetDocumentRevision;
 use SugarClient\Http\ApiAction\SetEntry;
 use SugarClient\Http\ApiAction\SetRelationship;
 
@@ -67,5 +69,15 @@ class Requests
     public static function setRelationship($moduleName, $moduleId, $relationModuleDbName, $relationModuleId)
     {
         return new SetRelationship($moduleName, $moduleId, $relationModuleDbName, $relationModuleId);
+    }
+
+    public static function setDocumentRevision($documentId, $content, $fileName)
+    {
+        return new SetDocumentRevision($documentId, $content, $fileName);
+    }
+
+    public static function getDocumentRevision($documentId)
+    {
+        return new GetDocumentRevision($documentId);
     }
 }

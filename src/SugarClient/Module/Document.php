@@ -1,7 +1,11 @@
 <?php
 namespace SugarClient\Module;
 
+use Exception;
+use SugarClient\Core\File;
 use SugarClient\Core\Module;
+use SugarClient\Http\Request;
+use SugarClient\Http\Requests;
 use SugarClient\Relation\Type\HasMany;
 
 /**
@@ -20,5 +24,25 @@ class Document extends Module
                 'bugs' => HasMany::module('Bug')
             )
         ));
+    }
+
+    public function uploadFile($content, $fileName)
+    {
+        $call = Request::call(Requests::setDocumentRevision($this->id, $content, $fileName));
+        $this->reload();
+        return $call->id;
+    }
+
+    /**
+     * @return File
+     * @throws Exception
+     */
+    public function getFile()
+    {
+        $call = Request::call(Requests::getDocumentRevision($this->document_revision_id));
+        if (isset($call->number)) {
+            throw new Exception($call->description);
+        }
+        return File::create($call);
     }
 }
