@@ -40,9 +40,6 @@ class Document extends Module
     public function getFile()
     {
         $call = Request::call(Requests::getDocumentRevision($this->document_revision_id));
-        if (isset($call->number)) {
-            throw new Exception($call->description);
-        }
         return File::create($call);
     }
 }

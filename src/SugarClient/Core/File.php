@@ -1,5 +1,8 @@
 <?php
 namespace SugarClient\Core;
+use SugarClient\Http\Requests;
+use SugarClient\Http\Request;
+use Exception;
 
 /**
  * Class File
@@ -46,5 +49,14 @@ class File
     {
         $info = $result->document_revision;
         return new self($info->id, $info->filename, $info->revision, $info->file);
+    }
+
+    public static function findById($id)
+    {
+        $call = Request::call(Requests::getDocumentRevision($id));
+        if (isset($call->number)) {
+            throw new Exception($call->description);
+        }
+        return self::create($call);
     }
 }
