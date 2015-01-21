@@ -5,6 +5,14 @@ REST client for SugarCRM, based on PHP.
 
 PHP version >= 5.3 is required.
 
+Establish a connection
+----------------------
+```php
+Session::connect('http://link/to/your/sugarcrm/service/v4_1/rest.php', 'login', 'password');
+```
+
+***
+
 Where clause
 ------------
 
