@@ -2,6 +2,7 @@
 namespace SugarClient\Core;
 
 use BadMethodCallException;
+use Exception;
 use Ouzo\Utilities\Arrays;
 use Ouzo\Utilities\Inflector;
 use ReflectionClass;
@@ -156,6 +157,10 @@ abstract class Module
 
     public function relatedWith(Module $module)
     {
-        Request::call(Requests::setRelationship($this->getModuleName(), $this->id, $module->getModuleDbName(), $module->id));
+        $result = Request::call(Requests::setRelationship($this->getModuleName(), $this->id, $module->getModuleDbName(), $module->id));
+        if ($result->failed) {
+            throw new Exception("Creating relationship failed");
+        }
+        return $result->created == 1;
     }
 }
