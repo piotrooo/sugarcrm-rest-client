@@ -163,7 +163,6 @@ You can reload module attributes using method `reload`.
 
 Joining modules
 ---------------
-
 You can join for module related modules. This relations are save in module classes which are in namespace `\SugarClient\Module`. Relations types: 
 
 * `belongsTo` - return module
@@ -191,11 +190,41 @@ This code result that in `Account` module will be avaiable only fields: `id` and
 
 Joining modules through other relation
 --------------------------------------
-
 Sometimes you want to get relations through other relation. You can do this using `->` sparator in a `join` method.
 
 ```php
 $contact = Contact::where(array('last_name' => 'Tibbs'))
             ->join('account->leads')
             ->fetch();
+```
+
+***
+
+Handling files
+--------------
+To upload `Document` file create object, and use `uploadFile` method.
+
+```php
+$document = new Document(array(
+    'document_name' => 'new document test',
+    'revision' => '1'
+));
+$document->insert();
+$content = file_get_contents(Path::join('path', 'to', 'your', 'file_name.txt'));
+$fileName = 'file_name.txt';
+
+$document->uploadFile($content, $fileName);
+```
+
+To retrive last file for document use `getFile` method.
+
+```php
+$document->getFile();
+```
+
+This method return `File` object where you can save file using `saveTo` method.
+
+```php
+$file = $document->getFile();
+$file->saveTo(Path::join('detinationa', 'path', $file->getFileName()));
 ```
