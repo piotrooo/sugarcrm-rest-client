@@ -226,5 +226,5 @@ This method return `File` object where you can save file using `saveTo` method.
 
 ```php
 $file = $document->getFile();
-$file->saveTo(Path::join('detinationa', 'path', $file->getFileName()));
+$file->saveTo(Path::join('destination', 'path', $file->getFileName()));
 ```
