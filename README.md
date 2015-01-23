@@ -181,7 +181,9 @@ $accountName = $contact->account->name;
 If you want to specify fields which are returned by the `join` method you can pass array whit this fields as second parameter.
 
 ```php
-$contact = Contact::where(array('last_name' => 'Tibbs'))->join('account', array('id', 'name'))->fetch();
+$contact = Contact::where(array('last_name' => 'Tibbs'))
+                    ->join('account', array('id', 'name'))
+                    ->fetch();
 ```
 
 This code result that in `Account` module will be avaiable only fields: `id` and `name`.
